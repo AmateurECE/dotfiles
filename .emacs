@@ -24,7 +24,11 @@
  '(inhibit-default-init t)
  '(standard-indent 8)
  '(indent-tabs-mode nil)
- '(tab-stop-list (quote (4 8 12 16 20 24 28 32))))
+ '(tab-stop-list (quote (4 8 12 16 20 24 28 32)))
+ '(custom-enabled-themes '(manoj-dark))
+ '(package-selected-packages '(insert-banner rust-mode)))
+
+(require 'insert-banner)
 
 ;; Configure for MELPA
 (require 'package)
