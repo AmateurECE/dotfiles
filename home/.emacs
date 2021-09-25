@@ -20,13 +20,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(electric-pair-mode t)
- '(inhibit-default-init t)
- '(standard-indent 8)
- '(indent-tabs-mode nil)
- '(tab-stop-list (quote (4 8 12 16 20 24 28 32)))
  '(custom-enabled-themes '(manoj-dark))
- '(package-selected-packages '(insert-banner rust-mode)))
+ '(electric-pair-mode t)
+ '(indent-tabs-mode nil)
+ '(inhibit-default-init t)
+ '(package-selected-packages '(dockerfile-mode insert-banner rust-mode))
+ '(standard-indent 8)
+ '(tab-stop-list '(4 8 12 16 20 24 28 32)))
 
 (require 'insert-banner)
 
@@ -156,3 +156,9 @@ backwards ARG times if negative."
 (c-set-offset 'brace-list-intro '+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
