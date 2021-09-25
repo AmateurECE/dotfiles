@@ -7,7 +7,7 @@
 ;;
 ;; CREATED:	    09/15/2017
 ;;
-;; LAST EDITED:	    08/28/2021
+;; LAST EDITED:	    09/24/2021
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -67,6 +67,8 @@
                               auto-mode-alist))
 (add-to-list 'auto-mode-alist '("\\.[ch]\\(pp\\|xx\\|\\+\\+\\)\\?\\'"
                                 . c++-mode))
+(add-to-list 'auto-mode-alist '("\\(Containerfile\\|Dockerfile\\)\\'"
+                                . dockerfile-mode))
 
 (if (eq major-mode 'nxml-mode)
     (setq indent-tabs-mode t))
