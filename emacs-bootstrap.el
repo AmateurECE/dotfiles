@@ -8,3 +8,4 @@
 ;; Install packages I care about
 (package-install 'rust-mode)
 (package-install 'dockerfile-mode)
+(package-install 'markdown-mode)
