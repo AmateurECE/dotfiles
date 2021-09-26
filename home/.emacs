@@ -24,7 +24,7 @@
  '(electric-pair-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-default-init t)
- '(package-selected-packages '(dockerfile-mode insert-banner rust-mode))
+ '(package-selected-packages '(markdown-mode dockerfile-mode insert-banner rust-mode))
  '(standard-indent 8)
  '(tab-stop-list '(4 8 12 16 20 24 28 32)))
 
