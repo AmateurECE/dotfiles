@@ -41,4 +41,9 @@ if [[ -d $HOME/.local/bin ]]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
+# Useful on systems where I run Rust.
+if [[ -d $HOME/.cargo/bin ]]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
 ###############################################################################
