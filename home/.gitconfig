@@ -1,0 +1,8 @@
+[user]
+	email = ethan.twardy@gmail.com
+	name = Ethan D. Twardy
+[core]
+	editor = /usr/bin/nano
+	autocrlf = false
+[init]
+	defaultBranch = master
