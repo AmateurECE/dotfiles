@@ -71,8 +71,9 @@
 (add-to-list 'auto-mode-alist '("\\(Containerfile\\|Dockerfile\\)\\'"
                                 . dockerfile-mode))
 
-(add-to-list 'auto-mode-alist '("\\.\\(bb\\(append\\|class\\)\\?\\|inc\\)\\'"
+(add-to-list 'auto-mode-alist '("\\.bb\\(append\\|class\\)\\?\\'"
                                 . bitbake-mode))
+(add-to-list 'auto-mode-alist '("\\.inc\\'" . bitbake-mode))
 
 (if (eq major-mode 'nxml-mode)
     (setq indent-tabs-mode t))
