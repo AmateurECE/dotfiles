@@ -9,3 +9,4 @@
 (package-install 'rust-mode)
 (package-install 'dockerfile-mode)
 (package-install 'markdown-mode)
+(package-install 'bitbake)

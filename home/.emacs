@@ -7,7 +7,7 @@
 ;;
 ;; CREATED:	    09/15/2017
 ;;
-;; LAST EDITED:	    09/24/2021
+;; LAST EDITED:	    09/27/2021
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -24,7 +24,8 @@
  '(electric-pair-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-default-init t)
- '(package-selected-packages '(markdown-mode dockerfile-mode insert-banner rust-mode))
+ '(package-selected-packages
+   '(bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
  '(standard-indent 8)
  '(tab-stop-list '(4 8 12 16 20 24 28 32)))
 
@@ -69,6 +70,9 @@
                                 . c++-mode))
 (add-to-list 'auto-mode-alist '("\\(Containerfile\\|Dockerfile\\)\\'"
                                 . dockerfile-mode))
+
+(add-to-list 'auto-mode-alist '("\\.\\(bb\\(append\\|class\\)\\?\\|inc\\)\\'"
+                                . bitbake-mode))
 
 (if (eq major-mode 'nxml-mode)
     (setq indent-tabs-mode t))
