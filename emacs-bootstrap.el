@@ -10,3 +10,4 @@
 (package-install 'dockerfile-mode)
 (package-install 'markdown-mode)
 (package-install 'bitbake)
+(package-install 'ess)
