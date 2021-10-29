@@ -11,3 +11,4 @@
 (package-install 'markdown-mode)
 (package-install 'bitbake)
 (package-install 'ess)
+(package-install 'meson-mode)
