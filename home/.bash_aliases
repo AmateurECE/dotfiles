@@ -9,7 +9,7 @@
 #
 # CREATED:	    10/23/2017
 #
-# LAST EDITED:	    09/26/2021
+# LAST EDITED:	    10/29/2021
 ###
 
 # Shell prompt
@@ -27,7 +27,7 @@ alias tmux="tmux -f $HOME/.tmux.conf"
 # DEB* - Used by various debian package maintainer scripts
 # GIT_* - Used by git commands
 # EMAIL - Also used by other git commands
-export EMAIL=ethan.twardy@gmail.com
+export EMAIL=ethan.twardy@plexus.com
 export GIT_AUTHOR_EMAIL=$EMAIL
 export GIT_COMMITTER_EMAIL=$EMAIL
 export DEBEMAIL=$EMAIL

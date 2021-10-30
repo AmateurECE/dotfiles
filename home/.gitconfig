@@ -1,5 +1,5 @@
 [user]
-	email = ethan.twardy@gmail.com
+	email = ethan.twardy@plexus.com
 	name = Ethan D. Twardy
 [core]
 	editor = /usr/bin/nano
@@ -8,3 +8,5 @@
 	defaultBranch = trunk
 [pull]
 	rebase = false
+[http]
+	sslVerify = false
