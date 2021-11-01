@@ -12,3 +12,4 @@
 (package-install 'bitbake)
 (package-install 'ess)
 (package-install 'meson-mode)
+(package-install 'yaml-mode)

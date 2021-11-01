@@ -19,14 +19,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(c-basic-offset 4)
  '(column-number-mode t)
  '(custom-enabled-themes '(manoj-dark))
  '(electric-pair-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-default-init t)
  '(package-selected-packages
-   '(meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
- '(c-basic-offset 4)
+   '(yaml-mode meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
  '(standard-indent 8)
  '(tab-stop-list '(4 8 12 16 20 24 28 32)))
 
