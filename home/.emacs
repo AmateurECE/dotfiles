@@ -7,7 +7,7 @@
 ;;
 ;; CREATED:	    09/15/2017
 ;;
-;; LAST EDITED:	    10/29/2021
+;; LAST EDITED:	    10/31/2021
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -26,6 +26,7 @@
  '(inhibit-default-init t)
  '(package-selected-packages
    '(meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
+ '(c-basic-offset 4)
  '(standard-indent 8)
  '(tab-stop-list '(4 8 12 16 20 24 28 32)))
 
