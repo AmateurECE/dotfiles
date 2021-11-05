@@ -7,7 +7,7 @@
 ;;
 ;; CREATED:	    09/15/2017
 ;;
-;; LAST EDITED:	    10/31/2021
+;; LAST EDITED:	    11/05/2021
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -75,6 +75,8 @@
 (add-to-list 'auto-mode-alist
              '("\\.bb\\'" . bitbake-mode)
              '("\\.inc\\'" . bitbake-mode))
+
+(add-to-list 'auto-mode-alist '("PKGBUILD\\'" . sh-mode))
 
 (if (eq major-mode 'nxml-mode)
     (setq indent-tabs-mode t))
