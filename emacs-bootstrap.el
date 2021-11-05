@@ -13,3 +13,5 @@
 (package-install 'ess)
 (package-install 'meson-mode)
 (package-install 'yaml-mode)
+(package-install 'nginx-mode)
+(package-install 'cmake-mode)
