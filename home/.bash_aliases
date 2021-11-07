@@ -16,7 +16,7 @@
 GREEN='\033[32;1m'
 BLUE='\033[34;1m'
 RESET='\033[0m'
-PS1="[${GREEN}\u@\h ${BLUE}\W${RESET}]\$ "
+PS1="[\[${GREEN}\]\u@\h \[${BLUE}\]\W\[${RESET}\]]\$ "
 
 # Standard aliases
 alias ls='ls -A --color=auto'
