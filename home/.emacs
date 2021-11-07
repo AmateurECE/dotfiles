@@ -7,7 +7,7 @@
 ;;
 ;; CREATED:	    09/15/2017
 ;;
-;; LAST EDITED:	    11/05/2021
+;; LAST EDITED:	    11/06/2021
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -164,6 +164,7 @@ backwards ARG times if negative."
 
 ;; Fix indentation for C mode:
 (c-set-offset 'arglist-cont-nonempty '+)
+(c-set-offset 'arglist-intro '+)
 (c-set-offset 'brace-list-intro '+)
 
 (defconst my-cc-style
