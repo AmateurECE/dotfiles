@@ -85,7 +85,9 @@ disable=raw-checker-failed,
         suppressed-message,
         useless-suppression,
         deprecated-pragma,
-        use-symbolic-message-instead
+        use-symbolic-message-instead,
+        missing-docstring,
+        too-few-public-methods
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
@@ -134,14 +136,14 @@ never-returning-functions=sys.exit,argparse.parse_error
 [BASIC]
 
 # Naming style matching correct argument names.
-argument-naming-style=snake_case
+argument-naming-style=camelCase
 
 # Regular expression matching correct argument names. Overrides argument-
 # naming-style.
 #argument-rgx=
 
 # Naming style matching correct attribute names.
-attr-naming-style=snake_case
+attr-naming-style=camelCase
 
 # Regular expression matching correct attribute names. Overrides attr-naming-
 # style.
@@ -192,7 +194,7 @@ const-naming-style=UPPER_CASE
 docstring-min-length=-1
 
 # Naming style matching correct function names.
-function-naming-style=snake_case
+function-naming-style=camelCase
 
 # Regular expression matching correct function names. Overrides function-
 # naming-style.
@@ -228,7 +230,7 @@ method-naming-style=snake_case
 #method-rgx=
 
 # Naming style matching correct module names.
-module-naming-style=snake_case
+module-naming-style=PascalCase
 
 # Regular expression matching correct module names. Overrides module-naming-
 # style.
@@ -248,7 +250,7 @@ no-docstring-rgx=^_
 property-classes=abc.abstractproperty
 
 # Naming style matching correct variable names.
-variable-naming-style=snake_case
+variable-naming-style=camelCase
 
 # Regular expression matching correct variable names. Overrides variable-
 # naming-style.
