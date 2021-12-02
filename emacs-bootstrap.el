@@ -15,3 +15,4 @@
 (package-install 'yaml-mode)
 (package-install 'nginx-mode)
 (package-install 'cmake-mode)
+(package-install 'rjsx-mode)
