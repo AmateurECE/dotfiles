@@ -7,7 +7,7 @@
 ;;
 ;; CREATED:	    09/15/2017
 ;;
-;; LAST EDITED:	    11/06/2021
+;; LAST EDITED:	    01/22/2022
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -26,7 +26,7 @@
  '(indent-tabs-mode nil)
  '(inhibit-default-init t)
  '(package-selected-packages
-   '(rjsx-mode cmake-mode nginx-mode yaml-mode meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
+   '(lua-mode bison-mode rjsx-mode cmake-mode nginx-mode yaml-mode meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
  '(standard-indent 8)
  '(tab-stop-list '(4 8 12 16 20 24 28 32)))
 
@@ -166,6 +166,7 @@ backwards ARG times if negative."
 (c-set-offset 'arglist-cont-nonempty '+)
 (c-set-offset 'arglist-intro '+)
 (c-set-offset 'brace-list-intro '+)
+(c-set-offset 'substatement-open '0)
 
 (defconst my-cc-style
   '("cc-mode"
