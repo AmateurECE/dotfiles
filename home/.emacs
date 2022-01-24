@@ -166,6 +166,7 @@ backwards ARG times if negative."
 (c-set-offset 'arglist-cont-nonempty '+)
 (c-set-offset 'arglist-intro '+)
 (c-set-offset 'brace-list-intro '+)
+(c-set-offset 'substatement-open '0)
 
 (defconst my-cc-style
   '("cc-mode"
