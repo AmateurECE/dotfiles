@@ -10,3 +10,5 @@
 	rebase = false
 [http]
 	sslVerify = false
+[grep]
+	lineNumber = true
