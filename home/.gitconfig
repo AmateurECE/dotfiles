@@ -8,3 +8,5 @@
 	defaultBranch = trunk
 [pull]
 	rebase = false
+[grep]
+	lineNumber = true
