@@ -9,7 +9,7 @@
 #
 # CREATED:	    10/23/2017
 #
-# LAST EDITED:	    11/06/2021
+# LAST EDITED:	    01/24/2022
 ###
 
 # Shell prompt
@@ -47,6 +47,11 @@ fi
 # Useful on systems where I run Rust.
 if [[ -d $HOME/.cargo/bin ]]; then
     export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# Useful on systems where I run Ruby 3.0.0+
+if [[ -d $HOME/.local/share/gem/ruby/3.0.0/bin ]]; then
+    export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
 fi
 
 ###############################################################################
