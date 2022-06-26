@@ -26,7 +26,7 @@
  '(indent-tabs-mode nil)
  '(inhibit-default-init t)
  '(package-selected-packages
-   '(kconfig-mode jenkinsfile-mode lua-mode bison-mode rjsx-mode cmake-mode nginx-mode yaml-mode meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
+   '(csharp-mode kconfig-mode jenkinsfile-mode lua-mode bison-mode rjsx-mode cmake-mode nginx-mode yaml-mode meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
  '(standard-indent 8)
  '(tab-stop-list '(4 8 12 16 20 24 28 32)))
 
