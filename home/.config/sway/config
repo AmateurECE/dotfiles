@@ -24,7 +24,7 @@ set $up k
 set $right l
 
 set $term alacritty
-set $menu ulauncher | xargs swaymsg exec --
+set $menu fuzzel | xargs swaymsg exec --
 
 ###############################################################################
 # Output
