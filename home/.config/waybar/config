@@ -4,7 +4,7 @@
     "position": "top",
     "modules-left": ["sway/workspaces", "sway/window"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/recorder", "tray", "idle_inhibitor", "pulseaudio", "temperature", "custom/cpu_speed", "battery", "custom/powermenu"],
+    "modules-right": ["tray", "idle_inhibitor", "pulseaudio", "battery"],
     "sway/workspaces": {
         "disable-scroll": true,
         "disable-markup": false,
@@ -28,31 +28,6 @@
         "tooltip-format": "<big>{:%B %Y}</big>\n<tt><big>{calendar}</big></tt>",
         "on-click": "gnome-calendar"
     },
-    "custom/cpu_speed": {
-        "interval": 10,
-        "return-type": "json",
-        "exec": "~/.config/waybar/modules/cpu_speed.sh",
-        "format": "<span font='Font Awesome 5 Free 11'>{icon}</span>  {}",
-        "format-icons": [""],
-        "escape": true,
-        "on-click": "terminator -e htop"
-    },
-    "custom/powermenu": {
-        "return-type": "json",
-        "exec": "~/.config/waybar/modules/powermenu.sh",
-        "format": "<span font='Font Awesome 5 Free 9'>{icon}</span>  {}",
-        "format-icons": [""],
-        "interval": 3600,
-        "escape": true,
-        "on-click": "~/sway/scripts/wofi-power.sh"
-    },
-    "custom/recorder": {
-		"format": "",
-		"return-type": "json",
-		"interval": 4,
-		"exec": "echo '{\"class\": \"recording\"}'",
-		"exec-if": "pgrep wf-recorder"
-	},
     "battery": {
         "format": "<span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}% - {time}",
         "format-icons": ["", "", "", "", ""],
@@ -106,13 +81,6 @@
         "format-icons": ["", ""],
         "on-scroll-down": "light -A 1",
         "on-scroll-up": "light -U 1"
-    },
-    "temperature": {
-        "format": "<span font='Font Awesome 5 Free 9'></span> {temperatureC:3}°C",
-        //"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input",
-        "hwmon-path": "/sys/class/thermal/thermal_zone10/temp",
-        //"on-click": "terminator -e 'watch -n1 sensors'"
-        "on-click": "psensor"
     },
     "custom/weather": {
         "format": "{}",
