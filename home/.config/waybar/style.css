@@ -132,6 +132,10 @@ label:focus {
     background-color: #000000;
 }
 
+#clock {
+    background-color: rgba(0, 0, 0, 0);
+}
+
 #cpu {
     background-color: #2ecc71;
     color: #000000;
