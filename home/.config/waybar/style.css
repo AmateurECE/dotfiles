@@ -83,6 +83,7 @@ window#waybar.chromium {
 #mpd {
     padding: 0 10px;
     color: #ffffff;
+    background-color: #2d3436;
 }
 
 #window,
@@ -157,13 +158,7 @@ label:focus {
 }
 
 #pulseaudio {
-    background-color: #f1c40f;
-    color: #000000;
-}
-
-#pulseaudio.muted {
-    background-color: #90b1b1;
-    color: #2a5c45;
+    color: #fff;
 }
 
 #custom-media {
@@ -199,10 +194,6 @@ label:focus {
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
     background-color: #eb4d4b;
-}
-
-#idle_inhibitor {
-    background-color: #2d3436;
 }
 
 #idle_inhibitor.activated {

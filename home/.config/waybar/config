@@ -24,7 +24,7 @@
         // "format": "( {} )"
     },
     "clock": {
-        "format": "{:%a %d %b - %H:%M}",
+        "format": "{:%d %b %H:%M}",
         "tooltip-format": "<big>{:%B %Y}</big>\n<tt><big>{calendar}</big></tt>",
         "on-click": "gnome-calendar"
     },
@@ -56,14 +56,13 @@
     "pulseaudio": {
         "format": "<span font='Font Awesome 5 Free 11'>{icon:2}</span>{volume:4}%",
         "format-alt": "<span font='Font Awesome 5 Free 11'>{icon:2}</span> {volume:4}%",
-        "format-alt-click": "click-right",
+        "format-alt-click": "click",
         "format-muted": "<span font='Font Awesome 5 Free 11'></span>",
         "format-icons": {
             "headphone": [" ", " ", " ", " "],
             "default": ["", "", "", ""]
         },
         "scroll-step": 2,
-        "on-click": "gnome-control-center sound",
         "tooltip": false
     },
     "custom/storage": {
