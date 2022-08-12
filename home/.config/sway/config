@@ -7,7 +7,7 @@
 #
 # CREATED:          07/24/2022
 #
-# LAST EDITED:      07/24/2022
+# LAST EDITED:      08/12/2022
 ###
 
 ###############################################################################
@@ -30,7 +30,7 @@ set $menu fuzzel | xargs swaymsg exec --
 # Output
 ###
 
-output * bg /usr/share/backgrounds/edtwardy/background.jpg fill scale 2
+output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 ###############################################################################
 # Idle
