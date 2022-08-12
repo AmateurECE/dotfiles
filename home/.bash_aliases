@@ -9,7 +9,7 @@
 #
 # CREATED:	    10/23/2017
 #
-# LAST EDITED:	    01/24/2022
+# LAST EDITED:	    07/24/2022
 ###
 
 # Shell prompt
@@ -52,6 +52,11 @@ fi
 # Useful on systems where I run Ruby 3.0.0+
 if [[ -d $HOME/.local/share/gem/ruby/3.0.0/bin ]]; then
     export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
+fi
+
+# Configure ssh-agent for Arch Linux
+if [[ $(systemctl --user is-active ssh-agent.service) = "active" ]]; then
+    export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 fi
 
 ###############################################################################
