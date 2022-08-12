@@ -30,7 +30,7 @@ set $menu fuzzel | xargs swaymsg exec --
 # Output
 ###
 
-output * bg /usr/share/backgrounds/edtwardy/background.jpg fill
+output * bg /usr/share/backgrounds/edtwardy/background.jpg fill scale 2
 
 ###############################################################################
 # Idle
