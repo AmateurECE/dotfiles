@@ -9,7 +9,7 @@
 #
 # CREATED:	    10/23/2017
 #
-# LAST EDITED:	    07/24/2022
+# LAST EDITED:	    08/13/2022
 ###
 
 # Shell prompt
@@ -52,6 +52,11 @@ fi
 # Useful on systems where I run Ruby 3.0.0+
 if [[ -d $HOME/.local/share/gem/ruby/3.0.0/bin ]]; then
     export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
+fi
+
+# Useful on systems where I run RVM
+if [[ -f $HOME/.rvm/scripts/rvm ]]; then
+    source $HOME/.rvm/scripts/rvm
 fi
 
 # Configure ssh-agent for Arch Linux
