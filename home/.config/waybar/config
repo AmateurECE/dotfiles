@@ -4,7 +4,7 @@
     "position": "top",
     "modules-left": ["sway/workspaces", "sway/window"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "idle_inhibitor", "pulseaudio", "battery"],
+    "modules-right": ["idle_inhibitor", "battery"],
     "sway/workspaces": {
         "disable-scroll": true,
         "disable-markup": false,
@@ -29,11 +29,10 @@
         "on-click": "gnome-calendar"
     },
     "battery": {
-        "format": "<span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}% - {time}",
+        "format": "<span font='Font Awesome 5 Free 11'>{icon}</span> {capacity}%",
         "format-icons": ["", "", "", "", ""],
-        "format-time": "{H}h{M}m",
-        "format-charging": "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}% - {time}",
-        "format-full": "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span>  Charged",
+        "format-charging": "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span> {capacity}%",
+        "format-full": "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span> Charged",
         "interval": 30,
         "states": {
             "warning": 25,
@@ -53,7 +52,7 @@
         // "on-click": "gnome-control-center wifi",
         "tooltip": false
     },
-    "pulseaudio": {
+    "wireplumber": {
         "format": "<span font='Font Awesome 5 Free 11'>{icon:2}</span>{volume:4}%",
         "format-alt": "<span font='Font Awesome 5 Free 11'>{icon:2}</span> {volume:4}%",
         "format-alt-click": "click",
@@ -103,10 +102,6 @@
         "tooltip": false
     },
 
-    "tray": {
-        "icon-size": 18,
-        "spacing": 18
-    },
     "wlr/taskbar": {
         "format": "{icon}",
         "icon-size": 14,
