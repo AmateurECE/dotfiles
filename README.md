@@ -10,16 +10,18 @@ homeshick clone https://github.com/AmateurECE/dotfiles
 # Setting up emacs
 
 Initialization will fail the first time Emacs is started, due to missing
-packages. For The following command can be used to install the `insert-banner`
-package. Replacing `insert-banner` with `local-snippet` in the following
-command can be used to install that package.
+packages. The following commands will install the missing packages from my
+Emacs package repository:
 
 ```
-curl https://raw.githubusercontent.com/AmateurECE/Emacs-Extensions/master/insert-banner.el
+curl -O https://raw.githubusercontent.com/AmateurECE/Emacs-Extensions/master/insert-banner.el
+curl -O https://raw.githubusercontent.com/AmateurECE/Emacs-Extensions/master/local-snippet.el
 ```
 
-In Emacs, use the `package-install-file` command to install this package. The
-file can then be removed.
+In Emacs, install the local packages, and all other required packages:
 
-To install all other packages, run the `package-install-selected-packages`
-command.
+```
+M-x package-install-file insert-banner.el
+M-x package-install-file local-snippet.el
+M-x package-install-selected-packages
+```

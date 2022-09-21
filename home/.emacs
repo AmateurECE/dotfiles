@@ -7,7 +7,7 @@
 ;;
 ;; CREATED:	    09/15/2017
 ;;
-;; LAST EDITED:	    01/22/2022
+;; LAST EDITED:	    09/21/2022
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -31,15 +31,13 @@
  '(standard-indent 8)
  '(tab-stop-list '(4 8 12 16 20 24 28 32)))
 
-(require 'insert-banner)
-
 ;; Configure for MELPA
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
 		    (not (gnutls-available-p))))
        (url (concat (if no-ssl "http" "https") "://melpa.org/packages/")))
   (add-to-list 'package-archives (cons "melpa" url) t))
-;; (package-initialize)
+(package-initialize)
 ;; (package-refresh-contents)
 
 ;; Turn on error-catching.
@@ -84,6 +82,8 @@
 
 (require 'local-snippet)
 (add-hook 'emacs-startup-hook (lambda () (load-local-snippets)))
+
+(require 'insert-banner)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; KEY BINDINGS
