@@ -4,7 +4,7 @@
     "position": "top",
     "modules-left": ["sway/workspaces", "sway/window"],
     "modules-center": ["clock"],
-    "modules-right": ["idle_inhibitor", "battery"],
+    "modules-right": ["pulseaudio", "idle_inhibitor", "network", "battery"],
     "sway/workspaces": {
         "disable-scroll": true,
         "disable-markup": false,
@@ -52,7 +52,10 @@
         // "on-click": "gnome-control-center wifi",
         "tooltip": false
     },
-    "wireplumber": {
+    // The interface of the wireplumber module and the pulseaudio module is the
+    // same. Just replace "pulseaudio" with "wireplumber" below to change them
+    // out.
+    "pulseaudio": {
         "format": "<span font='Font Awesome 5 Free 11'>{icon:2}</span>{volume:4}%",
         "format-alt": "<span font='Font Awesome 5 Free 11'>{icon:2}</span> {volume:4}%",
         "format-alt-click": "click",
