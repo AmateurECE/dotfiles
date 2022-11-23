@@ -7,7 +7,7 @@
 ;;
 ;; CREATED:	    09/15/2017
 ;;
-;; LAST EDITED:	    09/21/2022
+;; LAST EDITED:	    11/09/2022
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -27,7 +27,7 @@
  '(inhibit-default-init t)
  '(ispell-dictionary nil)
  '(package-selected-packages
-   '(ninja-mode dts-mode nftables-mode csharp-mode kconfig-mode jenkinsfile-mode lua-mode bison-mode rjsx-mode cmake-mode nginx-mode yaml-mode meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
+   '(ninja-mode plantuml-mode dts-mode nftables-mode csharp-mode kconfig-mode jenkinsfile-mode lua-mode bison-mode rjsx-mode cmake-mode nginx-mode yaml-mode meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
  '(standard-indent 8)
  '(tab-stop-list '(4 8 12 16 20 24 28 32)))
 
