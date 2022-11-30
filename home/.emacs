@@ -7,7 +7,7 @@
 ;;
 ;; CREATED:	    09/15/2017
 ;;
-;; LAST EDITED:	    11/09/2022
+;; LAST EDITED:	    11/29/2022
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -84,6 +84,9 @@
 (add-hook 'emacs-startup-hook (lambda () (load-local-snippets)))
 
 (require 'insert-banner)
+
+;; Re-enable downcase-region command
+(put 'downcase-region 'disabled nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; KEY BINDINGS
