@@ -47,7 +47,21 @@
 ;; semicolon.
 (setq verilog-auto-newline nil)
 
-;; mode-alist additions
+(if (eq major-mode 'nxml-mode)
+    (setq indent-tabs-mode t))
+
+(require 'local-snippet)
+(add-hook 'emacs-startup-hook (lambda () (load-local-snippets)))
+
+(require 'insert-banner)
+
+;; Re-enable downcase-region command
+(put 'downcase-region 'disabled nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Auto-mode-alist Modifications
+;;;
+
 (add-to-list 'auto-mode-alist '("\\.gradle" . java-mode))
 (add-to-list 'auto-mode-alist '("\\.bash_aliases" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.plist" . xml-mode))
@@ -78,17 +92,6 @@
 (add-to-list 'auto-mode-alist '("PKGBUILD\\'" . sh-mode))
 
 (add-to-list 'auto-mode-alist '("\\.kts\\'" . kotlin-mode))
-
-(if (eq major-mode 'nxml-mode)
-    (setq indent-tabs-mode t))
-
-(require 'local-snippet)
-(add-hook 'emacs-startup-hook (lambda () (load-local-snippets)))
-
-(require 'insert-banner)
-
-;; Re-enable downcase-region command
-(put 'downcase-region 'disabled nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; KEY BINDINGS
