@@ -7,7 +7,7 @@
 ;;
 ;; CREATED:	    09/15/2017
 ;;
-;; LAST EDITED:	    11/29/2022
+;; LAST EDITED:	    12/13/2022
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -27,7 +27,7 @@
  '(inhibit-default-init t)
  '(ispell-dictionary nil)
  '(package-selected-packages
-   '(ninja-mode plantuml-mode dts-mode nftables-mode csharp-mode kconfig-mode jenkinsfile-mode lua-mode bison-mode rjsx-mode cmake-mode nginx-mode yaml-mode meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
+   '(kotlin-mode ninja-mode plantuml-mode dts-mode nftables-mode csharp-mode kconfig-mode jenkinsfile-mode lua-mode bison-mode rjsx-mode cmake-mode nginx-mode yaml-mode meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
  '(standard-indent 8)
  '(tab-stop-list '(4 8 12 16 20 24 28 32)))
 
@@ -76,6 +76,8 @@
              '("\\.inc\\'" . bitbake-mode))
 
 (add-to-list 'auto-mode-alist '("PKGBUILD\\'" . sh-mode))
+
+(add-to-list 'auto-mode-alist '("\\.kts\\'" . kotlin-mode))
 
 (if (eq major-mode 'nxml-mode)
     (setq indent-tabs-mode t))
