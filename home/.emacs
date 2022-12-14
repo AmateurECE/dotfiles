@@ -7,7 +7,7 @@
 ;;
 ;; CREATED:	    09/15/2017
 ;;
-;; LAST EDITED:	    11/29/2022
+;; LAST EDITED:	    12/13/2022
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -27,7 +27,7 @@
  '(inhibit-default-init t)
  '(ispell-dictionary nil)
  '(package-selected-packages
-   '(ninja-mode plantuml-mode dts-mode nftables-mode csharp-mode kconfig-mode jenkinsfile-mode lua-mode bison-mode rjsx-mode cmake-mode nginx-mode yaml-mode meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
+   '(kotlin-mode ninja-mode plantuml-mode dts-mode nftables-mode csharp-mode kconfig-mode jenkinsfile-mode lua-mode bison-mode rjsx-mode cmake-mode nginx-mode yaml-mode meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
  '(standard-indent 8)
  '(tab-stop-list '(4 8 12 16 20 24 28 32)))
 
@@ -47,7 +47,21 @@
 ;; semicolon.
 (setq verilog-auto-newline nil)
 
-;; mode-alist additions
+(if (eq major-mode 'nxml-mode)
+    (setq indent-tabs-mode t))
+
+(require 'local-snippet)
+(add-hook 'emacs-startup-hook (lambda () (load-local-snippets)))
+
+(require 'insert-banner)
+
+;; Re-enable downcase-region command
+(put 'downcase-region 'disabled nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Auto-mode-alist Modifications
+;;;
+
 (add-to-list 'auto-mode-alist '("\\.gradle" . java-mode))
 (add-to-list 'auto-mode-alist '("\\.bash_aliases" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.plist" . xml-mode))
@@ -77,16 +91,7 @@
 
 (add-to-list 'auto-mode-alist '("PKGBUILD\\'" . sh-mode))
 
-(if (eq major-mode 'nxml-mode)
-    (setq indent-tabs-mode t))
-
-(require 'local-snippet)
-(add-hook 'emacs-startup-hook (lambda () (load-local-snippets)))
-
-(require 'insert-banner)
-
-;; Re-enable downcase-region command
-(put 'downcase-region 'disabled nil)
+(add-to-list 'auto-mode-alist '("\\.kts\\'" . kotlin-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; KEY BINDINGS
