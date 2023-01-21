@@ -9,7 +9,7 @@
 #
 # CREATED:	    10/23/2017
 #
-# LAST EDITED:	    08/13/2022
+# LAST EDITED:	    01/13/2023
 ###
 
 # Shell prompt
@@ -57,6 +57,11 @@ fi
 # Useful on systems where I run RVM
 if [[ -f $HOME/.rvm/scripts/rvm ]]; then
     source $HOME/.rvm/scripts/rvm
+fi
+
+# Setup JAVA_HOME on Arch Linux
+if grep -q 'Arch Linux' /etc/os-release; then
+    export JAVA_HOME=/usr/lib/jvm/default
 fi
 
 # Configure ssh-agent for Arch Linux

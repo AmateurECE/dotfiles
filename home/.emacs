@@ -7,7 +7,7 @@
 ;;
 ;; CREATED:	    09/15/2017
 ;;
-;; LAST EDITED:	    12/13/2022
+;; LAST EDITED:	    01/20/2023
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -27,7 +27,7 @@
  '(inhibit-default-init t)
  '(ispell-dictionary nil)
  '(package-selected-packages
-   '(kotlin-mode ninja-mode plantuml-mode dts-mode nftables-mode csharp-mode kconfig-mode jenkinsfile-mode lua-mode bison-mode rjsx-mode cmake-mode nginx-mode yaml-mode meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
+   '(mustache-mode kotlin-mode ninja-mode plantuml-mode dts-mode nftables-mode csharp-mode kconfig-mode jenkinsfile-mode lua-mode bison-mode rjsx-mode cmake-mode nginx-mode yaml-mode meson-mode ess local-snippet bitbake markdown-mode dockerfile-mode insert-banner rust-mode))
  '(standard-indent 8)
  '(tab-stop-list '(4 8 12 16 20 24 28 32)))
 
@@ -55,8 +55,9 @@
 
 (require 'insert-banner)
 
-;; Re-enable downcase-region command
+;; Re-enable up/downcase-region command
 (put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto-mode-alist Modifications
