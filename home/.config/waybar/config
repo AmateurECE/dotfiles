@@ -7,21 +7,11 @@
     "modules-right": ["pulseaudio", "idle_inhibitor", "network", "battery"],
     "sway/workspaces": {
         "disable-scroll": true,
-        "disable-markup": false,
-        "format": "{icon}",
-        "format-icons": {
-            "1": "1 <span font='Font Awesome 5 Free 11'> </span>",
-            "2": "2 <span font='Font Awesome 5 Free 11'> </span>",
-            "3": "3 <span font='Font Awesome 5 Free 11'> </span>",
-            "4": "4 <span font='Font Awesome 5 Free 11'> </span>",
-            "5": "5 <span font='Font Awesome 5 Free 11'> </span>",
-            "6": "6 <span font='Font Awesome 5 Free 11'> </span>"
-        }
+        "disable-markup": false
     },
     "sway/window": {
         "max-length": 60,
         "tooltip": false
-        // "format": "( {} )"
     },
     "clock": {
         "format": "{:%d %b %H:%M}",
