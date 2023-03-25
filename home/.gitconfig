@@ -5,7 +5,7 @@
 	editor = /usr/bin/nano
 	autocrlf = false
 [init]
-	defaultBranch = trunk
+	defaultBranch = main
 [pull]
 	rebase = false
 [grep]
