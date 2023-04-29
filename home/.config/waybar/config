@@ -4,7 +4,7 @@
     "position": "top",
     "modules-left": ["sway/workspaces", "sway/window"],
     "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "idle_inhibitor", "network", "battery"],
+    "modules-right": ["wireplumber", "idle_inhibitor", "network", "battery"],
     "sway/workspaces": {
         "disable-scroll": true,
         "disable-markup": false
@@ -42,7 +42,7 @@
         // "on-click": "gnome-control-center wifi",
         "tooltip": false
     },
-    "pulseaudio": {
+    "wireplumber": {
         "format": "<span font='Font Awesome 5 Free 11'>{icon:2}</span>{volume:4}%",
         "format-alt": "<span font='Font Awesome 5 Free 11'>{icon:2}</span> {volume:4}%",
         "format-alt-click": "click",

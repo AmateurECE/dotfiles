@@ -7,7 +7,7 @@
 #
 # CREATED:          07/24/2022
 #
-# LAST EDITED:      02/17/2023
+# LAST EDITED:      04/28/2023
 ###
 
 ###############################################################################
@@ -31,7 +31,7 @@ set $lock gtklock -s ~/.config/gtklock/style.css
 # Output
 ###
 
-output * bg /usr/share/backgrounds/edtwardy/background.jpg fill scale 2
+output * bg /usr/share/backgrounds/sway-background.png fill scale 2
 
 ###############################################################################
 # Idle
