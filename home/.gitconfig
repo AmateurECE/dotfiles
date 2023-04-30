@@ -1,6 +1,7 @@
 [user]
 	email = ethan.twardy@gmail.com
 	name = Ethan D. Twardy
+	signingkey = 0FF164523340E827
 [core]
 	editor = /usr/bin/nano
 	autocrlf = false
@@ -15,3 +16,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[commit]
+	gpgsign = true
