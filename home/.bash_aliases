@@ -9,7 +9,7 @@
 #
 # CREATED:	    10/23/2017
 #
-# LAST EDITED:	    04/30/2023
+# LAST EDITED:	    05/02/2023
 ###
 
 # Shell prompt
@@ -40,6 +40,9 @@ export GIT_COMMITTER_NAME=$GIT_AUTHOR_NAME
 export DEBFULLNAME=$GIT_AUTHOR_NAME
 
 export ECHANGELOG_USER="$GIT_AUTHOR_NAME <$EMAIL>"
+
+# Configure a TTY for OpenPGP to prompt for a password on
+export GPG_TTY=$(tty)
 
 # Useful on systems where I run Python.
 if [[ -d $HOME/.local/bin ]]; then
