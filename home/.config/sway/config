@@ -7,7 +7,7 @@
 #
 # CREATED:          07/24/2022
 #
-# LAST EDITED:      04/28/2023
+# LAST EDITED:      05/02/2023
 ###
 
 ###############################################################################
@@ -211,6 +211,10 @@ bindsym $mod+r mode "resize"
 ###############################################################################
 # Appearance
 ###
+
+# Explicitly set the xcursor theme to avoid problems with cursor scaling on
+# HiDPI screens. See https://github.com/swaywm/sway/issues/6931
+seat seat0 xcursor_theme Adwaita
 
 # This font requires the package ttf-opensans to be installed
 font pango:opensans Ultra-Bold 10
