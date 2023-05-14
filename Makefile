@@ -19,4 +19,6 @@ install:
 		"$(DESTDIR)/etc/gtk-3.0/settings.ini"
 	install -Dm755 wayland/startwm.sh "$(DESTDIR)/usr/bin/startwm"
 	install -Dm644 wayland/xdg-desktop-portal-gtk.conf \
-		$(DESTDIR)$(systemd_userdir)/xdg-desktop-portal-gtk.service.d/xdg-desktop-portal-gtk.conf
+		-t $(DESTDIR)$(systemd_userdir)/xdg-desktop-portal-gtk.service.d
+	install -Dm644 wayland/xdg-desktop-portal-wlr.conf \
+		-t $(DESTDIR)$(systemd_userdir)/xdg-desktop-portal-wlr.service.d
