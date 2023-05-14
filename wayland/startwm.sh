@@ -9,10 +9,14 @@
 #
 # CREATED:          07/22/2022
 #
-# LAST EDITED:      12/24/2022
+# LAST EDITED:      05/14/2023
 ###
 
 export XDG_SESSION_TYPE=wayland
+export MOZ_ENABLE_WAYLAND=1
+export QT_QPA_PLATFORM=wayland
+export SDL_VIDEODRIVER=wayland
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 STARTWM_SHELL=$1 && shift
 
