@@ -22,3 +22,4 @@ install:
 		-t $(DESTDIR)$(systemd_userdir)/xdg-desktop-portal-gtk.service.d
 	install -Dm644 wayland/xdg-desktop-portal-wlr.conf \
 		-t $(DESTDIR)$(systemd_userdir)/xdg-desktop-portal-wlr.service.d
+	install -Dm644 wayland/50-systemd-user.conf -t /etc/sway/config.d

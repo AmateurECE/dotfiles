@@ -11,14 +11,6 @@
 ###
 
 ###############################################################################
-# Environment
-###
-
-# Have to import these variables into the systemd user session environment
-# block in order for xdg-desktop-wlr to work
-exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-
-###############################################################################
 # Variables
 ###
 
