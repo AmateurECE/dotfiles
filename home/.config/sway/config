@@ -7,7 +7,7 @@
 #
 # CREATED:          07/24/2022
 #
-# LAST EDITED:      05/02/2023
+# LAST EDITED:      05/08/2023
 ###
 
 ###############################################################################
@@ -23,7 +23,7 @@ set $down j
 set $up k
 set $right l
 
-set $term alacritty
+set $term foot
 set $menu fuzzel | xargs swaymsg exec --
 set $lock gtklock -s ~/.config/gtklock/style.css
 
