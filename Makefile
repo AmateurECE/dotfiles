@@ -4,7 +4,6 @@ all:
 
 datadir=/usr/share
 systemd_unitdir=/usr/lib/systemd/system
-systemd_userdir=/usr/lib/systemd/user
 
 install:
 	install -Dm644 wayland/greetd.toml \
@@ -18,5 +17,4 @@ install:
 	install -Dm644 wayland/settings.ini \
 		"$(DESTDIR)/etc/gtk-3.0/settings.ini"
 	install -Dm755 wayland/startwm.sh "$(DESTDIR)/usr/bin/startwm"
-	install -Dm644 wayland/xdg-desktop-portal-gtk.conf \
-		$(DESTDIR)$(systemd_userdir)/xdg-desktop-portal-gtk.service.d/xdg-desktop-portal-gtk.conf
+	install -Dm644 wayland/wayland.sh -t $(DESTDIR)/etc/profile.d
