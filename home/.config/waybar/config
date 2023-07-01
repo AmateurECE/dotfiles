@@ -19,10 +19,10 @@
         "on-click": "gnome-calendar"
     },
     "battery": {
-        "format": "<span font='Font Awesome 5 Free 11'>{icon}</span> {capacity}%",
+        "format": "<span font='Font Awesome 6 Free 11'>{icon}</span> {capacity}%",
         "format-icons": ["", "", "", "", ""],
-        "format-charging": "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span> {capacity}%",
-        "format-full": "<span font='Font Awesome 5 Free'></span> <span font='Font Awesome 5 Free 11'>{icon:2}</span> Charged",
+        "format-charging": "<span font='Font Awesome 6 Free'></span> <span font='Font Awesome 6 Free 11'>{icon}</span> {capacity}%",
+        "format-full": "<span font='Font Awesome 6 Free'></span> <span font='Font Awesome 6 Free 11'>{icon}</span> Charged",
         "interval": 30,
         "states": {
             "warning": 25,
@@ -35,7 +35,7 @@
         "format": "{icon}",
         "format-alt": "{ipaddr}/{cidr} {icon}",
         "format-alt-click": "click-right",
-        "format-wifi": "<span font='Font Awesome 5 Free 10'> </span> {essid} ({signalStrength}%)",
+        "format-wifi": "<span font='Font Awesome 6 Free 10'></span> {essid} ({signalStrength}%)",
         "format-ethernet": " {ifname}",
         "format-disconnected": "⚠ Disconnected",
         "on-click": "terminator -e ~/sway/scripts/network-manager",
@@ -43,10 +43,10 @@
         "tooltip": false
     },
     "wireplumber": {
-        "format": "<span font='Font Awesome 5 Free 11'>{icon:2}</span>{volume:4}%",
-        "format-alt": "<span font='Font Awesome 5 Free 11'>{icon:2}</span> {volume:4}%",
+        "format": "<span font='Font Awesome 6 Free 11'>{icon:2}</span>{volume:4}%",
+        "format-alt": "<span font='Font Awesome 6 Free 11'>{icon:2}</span> {volume:4}%",
         "format-alt-click": "click",
-        "format-muted": "<span font='Font Awesome 5 Free 11'></span>",
+        "format-muted": "<span font='Font Awesome 6 Free 11'></span>",
         "format-icons": {
             "headphone": [" ", " ", " ", " "],
             "default": ["", "", "", ""]
@@ -86,8 +86,8 @@
         "format-alt": "{icon} idle {status}",
         "format-alt-click": "click-right",
         "format-icons": {
-            "activated": "<span font='Font Awesome 5 Free 9'></span>",
-            "deactivated": "<span font='Font Awesome 5 Free 9'></span>"
+            "activated": "<span font='Font Awesome 6 Free 9'></span>",
+            "deactivated": "<span font='Font Awesome 6 Free 9'></span>"
         },
         "tooltip": false
     },
