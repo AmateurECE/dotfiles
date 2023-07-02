@@ -2,14 +2,14 @@
     "layer": "top",
     "height": 27,
     "position": "top",
-    "modules-left": ["sway/workspaces", "sway/window"],
+    "modules-left": ["wlr/workspaces", "wlr/window"],
     "modules-center": ["clock"],
     "modules-right": ["wireplumber", "idle_inhibitor", "network", "battery"],
-    "sway/workspaces": {
+    "wlr/workspaces": {
         "disable-scroll": true,
         "disable-markup": false
     },
-    "sway/window": {
+    "wlr/window": {
         "max-length": 60,
         "tooltip": false
     },
@@ -38,8 +38,6 @@
         "format-wifi": "<span font='Font Awesome 6 Free 10'></span> {essid} ({signalStrength}%)",
         "format-ethernet": " {ifname}",
         "format-disconnected": "⚠ Disconnected",
-        "on-click": "terminator -e ~/sway/scripts/network-manager",
-        // "on-click": "gnome-control-center wifi",
         "tooltip": false
     },
     "wireplumber": {
