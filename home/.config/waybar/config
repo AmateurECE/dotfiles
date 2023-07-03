@@ -2,18 +2,9 @@
     "layer": "top",
     "height": 27,
     "position": "top",
-    "modules-left": ["wlr/workspaces", "wlr/window"],
+    "modules-left": ["wlr/workspaces"],
     "modules-center": ["clock"],
     "modules-right": ["wireplumber", "idle_inhibitor", "network", "battery"],
-    "wlr/workspaces": {
-        "format": "<span font='Font Awesome 6 Free 11'>{name}</span>",
-        "disable-scroll": true,
-        "disable-markup": false
-    },
-    "wlr/window": {
-        "max-length": 60,
-        "tooltip": false
-    },
     "clock": {
         "format": "{:%d %b %H:%M}",
         "tooltip-format": "<big>{:%B %Y}</big>\n<tt><big>{calendar}</big></tt>",

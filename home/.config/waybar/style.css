@@ -1,7 +1,7 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons, and
      ttf-opensans is required for OpenSans family. */
-    font-family: FontAwesome, OpenSans, Roboto, Helvetica, Arial, sans-serif;
+    font-family: OpenSans, Roboto, Helvetica, Arial, sans-serif;
     font-size: 15px;
     font-weight: bold;
 }
