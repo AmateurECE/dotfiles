@@ -6,6 +6,7 @@
     "modules-center": ["clock"],
     "modules-right": ["wireplumber", "idle_inhibitor", "network", "battery"],
     "wlr/workspaces": {
+        "format": "<span font='Font Awesome 6 Free 11'>{name}</span>",
         "disable-scroll": true,
         "disable-markup": false
     },
