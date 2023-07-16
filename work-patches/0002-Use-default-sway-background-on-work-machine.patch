@@ -1,0 +1,22 @@
+From 37b82a7157ff5c7c48e754e6a678b260390ee5ce Mon Sep 17 00:00:00 2001
+From: "Ethan D. Twardy" <ethan.twardy@gmail.com>
+Date: Sun, 16 Jul 2023 00:19:52 -0500
+Subject: [PATCH 2/2] Use default sway background on work machine
+
+
+diff --git a/home/.config/sway/config b/home/.config/sway/config
+index bd47924..8820299 100644
+--- a/home/.config/sway/config
++++ b/home/.config/sway/config
+@@ -31,7 +31,7 @@ set $lock gtklock -s ~/.config/gtklock/style.css
+ # Output
+ ###
+ 
+-output * bg /usr/share/backgrounds/sway-background.png fill scale 2
++output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+ 
+ ###############################################################################
+ # Idle
+-- 
+2.41.0
+
