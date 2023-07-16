@@ -25,3 +25,22 @@ M-x package-install-file insert-banner.el
 M-x package-install-file local-snippet.el
 M-x package-install-selected-packages
 ```
+
+# Work patches
+
+To setup a system with the work patches, clone the repository and apply the
+patches to a local branch:
+
+```
+git clone git@github.com:AmateurECE/dotfiles.git
+git checkout -b work
+git am work-patches/*.patch
+```
+
+Repeat this workflow whenever pulling work from upstream. To update the
+patchset, use git-rebase(1). To commit the new patches to version control,
+use git-format-patch(1):
+
+```
+git format-patch -p -o work-patches/ master..
+```
