@@ -38,9 +38,9 @@ git am work-patches/*.patch
 ```
 
 Repeat this workflow whenever pulling work from upstream. To update the
-patchset, use git-rebase(1). To commit the new patches to version control,
-use git-format-patch(1):
+patchset, use git-rebase(1) and git-format-patch(1):
 
 ```
+git rebase origin/master
 git format-patch -p -o work-patches/ master..
 ```
