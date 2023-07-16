@@ -1,10 +1,11 @@
-From dfc5ede5504a6d458a40e1a310c74771ccfa5b0d Mon Sep 17 00:00:00 2001
+From 8154576cc9bb8ceaaa016c05db1b668105e5a107 Mon Sep 17 00:00:00 2001
 From: "Ethan D. Twardy" <ethan.twardy@gmail.com>
 Date: Sat, 15 Jul 2023 23:54:00 -0500
 Subject: [PATCH] Fix .gitconfig and email addresses
 
  * Don't gpgsign commits with my personal key
  * Don't use my git-sendemail configuration
+ * Don't verify SSL certificates
  * Replace all references to my personal email with my work email
 
 diff --git a/home/.bash_aliases b/home/.bash_aliases
@@ -21,7 +22,7 @@ index 5d03820..7923e56 100644
  
  export DEBEMAIL=$EMAIL
 diff --git a/home/.gitconfig b/home/.gitconfig
-index cb81196..a0e335c 100644
+index cb81196..063ac6f 100644
 --- a/home/.gitconfig
 +++ b/home/.gitconfig
 @@ -1,7 +1,6 @@
@@ -33,7 +34,16 @@ index cb81196..a0e335c 100644
  [core]
  	editor = /usr/bin/nano
  	autocrlf = false
-@@ -16,10 +15,3 @@
+@@ -9,6 +8,8 @@
+ 	defaultBranch = main
+ [pull]
+ 	rebase = false
++[http]
++  sslVerify = false
+ [grep]
+ 	lineNumber = true
+ [filter "lfs"]
+@@ -16,10 +17,3 @@
  	smudge = git-lfs smudge -- %f
  	process = git-lfs filter-process
  	required = true
