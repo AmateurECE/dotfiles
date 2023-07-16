@@ -1,8 +1,8 @@
 {
     "layer": "top",
-    "height": 27,
+    "height": 34,
     "position": "top",
-    "modules-left": ["wlr/workspaces"],
+    "modules-left": ["wlr/taskbar"],
     "modules-center": ["clock"],
     "modules-right": ["wireplumber", "idle_inhibitor", "network", "battery"],
     "clock": {
