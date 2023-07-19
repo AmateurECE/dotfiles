@@ -1,0 +1,37 @@
+From 609fd9f65725690357bd4d0bd530f25a18dbcf13 Mon Sep 17 00:00:00 2001
+From: "Ethan D. Twardy" <ethan.twardy@gmail.com>
+Date: Sun, 16 Jul 2023 00:19:52 -0500
+Subject: [PATCH 2/2] Setup sway desktop
+
+ * Increase alacritty font size to 10
+ * Use the default sway background image
+
+diff --git a/home/.config/alacritty/alacritty.yml b/home/.config/alacritty/alacritty.yml
+index 0a8c266..d9cb7f8 100644
+--- a/home/.config/alacritty/alacritty.yml
++++ b/home/.config/alacritty/alacritty.yml
+@@ -156,7 +156,7 @@ font:
+     #style: Bold Italic
+ 
+   # Point size
+-  size: 8
++  size: 10
+ 
+   # Offset is the extra space around each character. `offset.y` can be thought
+   # of as modifying the line spacing, and `offset.x` as modifying the letter
+diff --git a/home/.config/sway/config b/home/.config/sway/config
+index bd47924..8820299 100644
+--- a/home/.config/sway/config
++++ b/home/.config/sway/config
+@@ -31,7 +31,7 @@ set $lock gtklock -s ~/.config/gtklock/style.css
+ # Output
+ ###
+ 
+-output * bg /usr/share/backgrounds/sway-background.png fill scale 2
++output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+ 
+ ###############################################################################
+ # Idle
+-- 
+2.41.0
+

@@ -34,7 +34,7 @@ patches to a local branch:
 ```
 git clone git@github.com:AmateurECE/dotfiles.git
 git checkout -b work
-git am work-patches/*.patch
+git am --no-gpg-sign work-patches/*.patch
 ```
 
 Repeat this workflow whenever pulling work from upstream. To update the
