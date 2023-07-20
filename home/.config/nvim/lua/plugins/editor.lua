@@ -1,4 +1,28 @@
 return {
+  { "williamboman/mason-lspconfig.nvim", enabled = false },
+
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "stylua",
+        "shellcheck",
+        "shfmt",
+      },
+    },
+  },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      pickers = {
+        find_files = {
+          find_command = { "rg", "--ignore", "--files", "--hidden", "--glob", "!**/.git/*" },
+        },
+      },
+    },
+  },
+
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
