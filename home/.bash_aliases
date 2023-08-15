@@ -47,7 +47,7 @@ fi
 
 # Useful on systems where I run Rust.
 if [[ -d $HOME/.cargo/bin ]]; then
-	export PATH="$HOME/.cargo/bin:$PATH"
+	export PATH="$PATH:$HOME/.cargo/bin"
 fi
 
 # Useful on systems where I run Ruby 3.0.0+
@@ -66,8 +66,10 @@ if grep -q 'Arch Linux' /etc/os-release; then
 fi
 
 # Configure ssh-agent for Arch Linux
-if [[ $(systemctl --user is-active ssh-agent.service) = "active" ]]; then
+if [[ -f "$XDG_RUNTIME_DIR/ssh-agent.socket" ]]; then
 	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+elif [[ -f "$XDG_RUNTIME_DIR/openssh_agent" ]]; then
+	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/openssh_agent"
 fi
 
 ###############################################################################
