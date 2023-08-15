@@ -24,6 +24,14 @@ return {
   },
 
   {
+    "neovim/nvim-lspconfig",
+    ---@class LspPluginOpts
+    opts = {
+      autoformat = false,
+    },
+  },
+
+  {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
       filesystem = {
