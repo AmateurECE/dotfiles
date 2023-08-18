@@ -3,7 +3,7 @@
 	name = Ethan D. Twardy
 	signingkey = 0FF164523340E827
 [core]
-	editor = /usr/bin/nano
+	editor = /usr/bin/vi
 	autocrlf = false
 [init]
 	defaultBranch = main
