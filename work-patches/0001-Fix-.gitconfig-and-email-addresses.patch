@@ -1,4 +1,4 @@
-From d90448e7190704d5822f560d9454539fd409b7fe Mon Sep 17 00:00:00 2001
+From d859dc61a9ffa51d7f89a6c5f8c431f35b6dce0e Mon Sep 17 00:00:00 2001
 From: "Ethan D. Twardy" <ethan.twardy@gmail.com>
 Date: Sat, 15 Jul 2023 23:54:00 -0500
 Subject: [PATCH 1/2] Fix .gitconfig and email addresses
@@ -9,7 +9,7 @@ Subject: [PATCH 1/2] Fix .gitconfig and email addresses
  * Replace all references to my personal email with my work email
 
 diff --git a/home/.bash_aliases b/home/.bash_aliases
-index 5d03820..7923e56 100644
+index c4444fd..6634283 100644
 --- a/home/.bash_aliases
 +++ b/home/.bash_aliases
 @@ -30,7 +30,7 @@ alias tmux="tmux -f $HOME/.tmux.conf"
@@ -22,7 +22,7 @@ index 5d03820..7923e56 100644
  
  export DEBEMAIL=$EMAIL
 diff --git a/home/.gitconfig b/home/.gitconfig
-index cb81196..063ac6f 100644
+index 7bc9261..1841f92 100644
 --- a/home/.gitconfig
 +++ b/home/.gitconfig
 @@ -1,7 +1,6 @@
@@ -32,7 +32,7 @@ index cb81196..063ac6f 100644
  	name = Ethan D. Twardy
 -	signingkey = 0FF164523340E827
  [core]
- 	editor = /usr/bin/nano
+ 	editor = /usr/bin/vi
  	autocrlf = false
 @@ -9,6 +8,8 @@
  	defaultBranch = main

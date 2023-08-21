@@ -44,3 +44,8 @@ patchset, use git-rebase(1) and git-format-patch(1):
 git rebase origin/master
 git format-patch -p -o work-patches/ master..
 ```
+
+Since changing the global .gitconfig while performing complicated operations
+on a repository (like rebasing, merging, am, etc.) can be difficult or even
+dangerous, keep a separate checkout (not managed by homeshick) to perform work
+on these patches.
