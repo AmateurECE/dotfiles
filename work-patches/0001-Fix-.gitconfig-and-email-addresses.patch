@@ -1,4 +1,4 @@
-From d859dc61a9ffa51d7f89a6c5f8c431f35b6dce0e Mon Sep 17 00:00:00 2001
+From a09d7012827df04c2682af10d1ca1d55ee88beb8 Mon Sep 17 00:00:00 2001
 From: "Ethan D. Twardy" <ethan.twardy@gmail.com>
 Date: Sat, 15 Jul 2023 23:54:00 -0500
 Subject: [PATCH 1/2] Fix .gitconfig and email addresses
@@ -9,18 +9,18 @@ Subject: [PATCH 1/2] Fix .gitconfig and email addresses
  * Replace all references to my personal email with my work email
 
 diff --git a/home/.bash_aliases b/home/.bash_aliases
-index c4444fd..6634283 100644
+index 3004677..591e604 100644
 --- a/home/.bash_aliases
 +++ b/home/.bash_aliases
-@@ -30,7 +30,7 @@ alias tmux="tmux -f $HOME/.tmux.conf"
- # DEB* - Used by various debian package maintainer scripts
- # GIT_* - Used by git commands
- # EMAIL - Also used by other git commands
+@@ -27,7 +27,7 @@ alias rm='rm -i'
+ alias svn='svn --no-auth-cache'
+ alias tmux="tmux -f $HOME/.tmux.conf"
+ 
 -export EMAIL=ethan.twardy@gmail.com
 +export EMAIL=ethan.twardy@plexus.com
  export FULLNAME="Ethan D. Twardy"
  
- export DEBEMAIL=$EMAIL
+ # Used by various debian package maintainer tools
 diff --git a/home/.gitconfig b/home/.gitconfig
 index 7bc9261..1841f92 100644
 --- a/home/.gitconfig
@@ -62,5 +62,5 @@ index 639ba68..af8819a 100644
 -PACKAGER="Ethan D. Twardy <ethan.twardy@gmail.com>"
 +PACKAGER="Ethan D. Twardy <ethan.twardy@plexus.com>"
 -- 
-2.41.0
+2.42.0
 

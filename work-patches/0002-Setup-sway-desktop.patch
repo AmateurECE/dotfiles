@@ -1,4 +1,4 @@
-From 8f09dcc31c6c3da4f78718ab0a3160b4622d03a1 Mon Sep 17 00:00:00 2001
+From b62eca54e942b6ac51fe208fbce32dbbc3d9cdc6 Mon Sep 17 00:00:00 2001
 From: "Ethan D. Twardy" <ethan.twardy@gmail.com>
 Date: Sun, 16 Jul 2023 00:19:52 -0500
 Subject: [PATCH 2/2] Setup sway desktop
@@ -20,7 +20,7 @@ index 0a8c266..d9cb7f8 100644
    # Offset is the extra space around each character. `offset.y` can be thought
    # of as modifying the line spacing, and `offset.x` as modifying the letter
 diff --git a/home/.config/sway/config b/home/.config/sway/config
-index bd47924..8820299 100644
+index cbddf5a..2a3dd99 100644
 --- a/home/.config/sway/config
 +++ b/home/.config/sway/config
 @@ -31,7 +31,7 @@ set $lock gtklock -s ~/.config/gtklock/style.css
@@ -33,5 +33,5 @@ index bd47924..8820299 100644
  ###############################################################################
  # Idle
 -- 
-2.41.0
+2.42.0
 
