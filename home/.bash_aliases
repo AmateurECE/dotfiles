@@ -27,14 +27,14 @@ alias rm='rm -i'
 alias svn='svn --no-auth-cache'
 alias tmux="tmux -f $HOME/.tmux.conf"
 
-# DEB* - Used by various debian package maintainer scripts
-# GIT_* - Used by git commands
-# EMAIL - Also used by other git commands
 export EMAIL=ethan.twardy@gmail.com
 export FULLNAME="Ethan D. Twardy"
 
+# Used by various debian package maintainer tools
 export DEBEMAIL=$EMAIL
 export DEBFULLNAME=$FULLNAME
+
+# Used by ebuild tools (Gentoo)
 export ECHANGELOG_USER="$FULLNAME <$EMAIL>"
 
 # Configure a TTY for OpenPGP to prompt for a password on
@@ -66,9 +66,9 @@ if grep -q 'Arch Linux' /etc/os-release; then
 fi
 
 # Configure ssh-agent for Arch Linux
-if [[ -f "$XDG_RUNTIME_DIR/ssh-agent.socket" ]]; then
+if [[ -e "$XDG_RUNTIME_DIR/ssh-agent.socket" ]]; then
 	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-elif [[ -f "$XDG_RUNTIME_DIR/openssh_agent" ]]; then
+elif [[ -e "$XDG_RUNTIME_DIR/openssh_agent" ]]; then
 	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/openssh_agent"
 fi
 
