@@ -21,3 +21,5 @@ install:
 	install -Dm644 wayland/50-systemd-user.conf -t $(DESTDIR)/etc/sway/config.d
 	: # SSH Agent
 	install -Dm644 ssh-agent.service -t $(DESTDIR)$(systemd_userdir)
+	: # Enable "the notch"
+	install -Dm644 wayland/apple-dcp.conf -t $(DESTDIR)/lib/modprobe.d
