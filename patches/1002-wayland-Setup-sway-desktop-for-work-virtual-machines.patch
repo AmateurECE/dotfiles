@@ -1,0 +1,37 @@
+From 0f9acdbce5279aa3c8faf8a896a25765e3963c3f Mon Sep 17 00:00:00 2001
+From: "Ethan D. Twardy" <ethan.twardy@gmail.com>
+Date: Wed, 11 Oct 2023 21:21:36 -0500
+Subject: [PATCH] wayland: Setup sway desktop for work virtual machines
+
+ * Disable hardware cursors
+ * Don't configure the apple-dcp driver
+
+diff --git a/Makefile b/Makefile
+index c30bd2d..2f28f42 100644
+--- a/Makefile
++++ b/Makefile
+@@ -23,5 +23,3 @@ install:
+ 	install -Dm644 wayland/50-systemd-user.conf -t $(DESTDIR)/etc/sway/config.d
+ 	: # SSH Agent
+ 	install -Dm644 ssh-agent.service -t $(DESTDIR)$(systemd_userdir)
+-	: # Enable "the notch"
+-	install -Dm644 wayland/apple-dcp.conf -t $(DESTDIR)/lib/modprobe.d
+diff --git a/wayland/apple-dcp.conf b/wayland/apple-dcp.conf
+deleted file mode 100644
+index 74e4e9b..0000000
+--- a/wayland/apple-dcp.conf
++++ /dev/null
+@@ -1 +0,0 @@
+-options apple_dcp show_notch=Y
+diff --git a/wayland/cobblede.sh b/wayland/cobblede.sh
+index f8a01bb..482f96e 100644
+--- a/wayland/cobblede.sh
++++ b/wayland/cobblede.sh
+@@ -5,3 +5,4 @@ export SDL_VIDEODRIVER=wayland
+ export _JAVA_AWT_WM_NONREPARENTING=1
+ export XDG_SESSION_DESKTOP=sway
+ export XDG_CURRENT_DESKTOP=sway
++export WLR_NO_HARDWARE_CURSORS=1
+-- 
+2.42.0
+
