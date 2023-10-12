@@ -19,8 +19,6 @@ install:
 		-t $(DESTDIR)$(systemd_userdir)/xdg-desktop-portal-gtk.service.d
 	install -Dm644 wayland/xdg-desktop-portal-wlr.conf \
 		-t $(DESTDIR)$(systemd_userdir)/xdg-desktop-portal-wlr.service.d
-	: # Ensure critical environment variables are set.
-	install -Dm644 wayland/50-systemd-user.conf -t $(DESTDIR)/etc/sway/config.d
 	: # SSH Agent
 	install -Dm644 ssh-agent.service -t $(DESTDIR)$(systemd_userdir)
 	: # Enable "the notch"
