@@ -13,11 +13,13 @@ install:
 		"$(DESTDIR)$(systemd_unitdir)/greetd.service.d/greetd.conf"
 	install -Dm644 wayland/settings.ini \
 		"$(DESTDIR)/etc/gtk-3.0/settings.ini"
-	install -Dm755 wayland/startwm.sh "$(DESTDIR)/usr/bin/startwm"
+	install -Dm755 wayland/cobblede.sh -t "$(DESTDIR)/etc/profile.d"
+	: # Unit overrides for xdg-desktop-portal services.
 	install -Dm644 wayland/xdg-desktop-portal-gtk.conf \
 		-t $(DESTDIR)$(systemd_userdir)/xdg-desktop-portal-gtk.service.d
 	install -Dm644 wayland/xdg-desktop-portal-wlr.conf \
 		-t $(DESTDIR)$(systemd_userdir)/xdg-desktop-portal-wlr.service.d
+	: # Ensure critical environment variables are set.
 	install -Dm644 wayland/50-systemd-user.conf -t $(DESTDIR)/etc/sway/config.d
 	: # SSH Agent
 	install -Dm644 ssh-agent.service -t $(DESTDIR)$(systemd_userdir)
