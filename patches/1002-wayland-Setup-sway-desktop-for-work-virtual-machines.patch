@@ -1,10 +1,11 @@
-From 0f9acdbce5279aa3c8faf8a896a25765e3963c3f Mon Sep 17 00:00:00 2001
+From 4c0ebc314931b53a150c16d294f5dda7ab834c45 Mon Sep 17 00:00:00 2001
 From: "Ethan D. Twardy" <ethan.twardy@gmail.com>
 Date: Wed, 11 Oct 2023 21:21:36 -0500
 Subject: [PATCH] wayland: Setup sway desktop for work virtual machines
 
  * Disable hardware cursors
  * Don't configure the apple-dcp driver
+ * Use agreety instead of tuigreet
 
 diff --git a/Makefile b/Makefile
 index c30bd2d..2f28f42 100644
@@ -32,6 +33,19 @@ index f8a01bb..482f96e 100644
  export XDG_SESSION_DESKTOP=sway
  export XDG_CURRENT_DESKTOP=sway
 +export WLR_NO_HARDWARE_CURSORS=1
+diff --git a/wayland/greetd.toml b/wayland/greetd.toml
+index 9fc7a79..af083a2 100644
+--- a/wayland/greetd.toml
++++ b/wayland/greetd.toml
+@@ -8,7 +8,7 @@ vt = 1
+ 
+ # `agreety` is the bundled agetty/login-lookalike. You can replace `/bin/sh`
+ # with whatever you want started, such as `sway`.
+-command = "tuigreet --cmd 'systemd-cat --identifier=wayland /usr/bin/sway'"
++command = "agreety --cmd 'systemd-cat --identifier=wayland /usr/bin/sway'"
+ 
+ # The user to run the command as. The privileges this user must have depends
+ # on the greeter. A graphical greeter may for example require the user to be
 -- 
 2.42.0
 
