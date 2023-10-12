@@ -34,7 +34,7 @@ patches to a local branch:
 ```
 git clone git@github.com:AmateurECE/dotfiles.git
 git checkout -b work
-git am --no-gpg-sign work-patches/*.patch
+git am --no-gpg-sign patches/*.patch
 ```
 
 Repeat this workflow whenever pulling work from upstream. To update the
@@ -42,7 +42,7 @@ patchset, use git-rebase(1) and git-format-patch(1):
 
 ```
 git rebase origin/master
-git format-patch -p -o work-patches/ master..
+git format-patch -p -o patches/ master..
 ```
 
 Since changing the global .gitconfig while performing complicated operations
