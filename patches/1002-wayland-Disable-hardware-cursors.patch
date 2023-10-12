@@ -1,0 +1,20 @@
+From d7edb666f5002b6cd4cd458e0089e58a46cefb9f Mon Sep 17 00:00:00 2001
+From: "Ethan D. Twardy" <ethan.twardy@gmail.com>
+Date: Wed, 11 Oct 2023 21:21:36 -0500
+Subject: [PATCH] wayland: Disable hardware cursors
+
+This is only necessary on virtual machines. Since I run sway on a
+virtual machine at work, this is another "work patch".
+
+diff --git a/wayland/cobblede.sh b/wayland/cobblede.sh
+index f8a01bb..482f96e 100644
+--- a/wayland/cobblede.sh
++++ b/wayland/cobblede.sh
+@@ -5,3 +5,4 @@ export SDL_VIDEODRIVER=wayland
+ export _JAVA_AWT_WM_NONREPARENTING=1
+ export XDG_SESSION_DESKTOP=sway
+ export XDG_CURRENT_DESKTOP=sway
++export WLR_NO_HARDWARE_CURSORS=1
+-- 
+2.42.0
+
