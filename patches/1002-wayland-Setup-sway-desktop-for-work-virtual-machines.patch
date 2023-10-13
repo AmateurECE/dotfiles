@@ -1,4 +1,4 @@
-From 4c0ebc314931b53a150c16d294f5dda7ab834c45 Mon Sep 17 00:00:00 2001
+From 945cb6f258c3760b30ccfcdb53f37f2f34aea867 Mon Sep 17 00:00:00 2001
 From: "Ethan D. Twardy" <ethan.twardy@gmail.com>
 Date: Wed, 11 Oct 2023 21:21:36 -0500
 Subject: [PATCH] wayland: Setup sway desktop for work virtual machines
@@ -6,17 +6,57 @@ Subject: [PATCH] wayland: Setup sway desktop for work virtual machines
  * Disable hardware cursors
  * Don't configure the apple-dcp driver
  * Use agreety instead of tuigreet
+ * Remove 50-systemd-user.conf (already installed on Arch)
+ * Remove ssh-agent.service (already installed on Arch)
+ * Switch greetd.toml to use "greeter" user instead of "greetd" user,
+   since that's the name of the user created by the Arch package
+   maintainers.
 
 diff --git a/Makefile b/Makefile
-index c30bd2d..2f28f42 100644
+index c30bd2d..5c28c47 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -23,5 +23,3 @@ install:
- 	install -Dm644 wayland/50-systemd-user.conf -t $(DESTDIR)/etc/sway/config.d
- 	: # SSH Agent
- 	install -Dm644 ssh-agent.service -t $(DESTDIR)$(systemd_userdir)
+@@ -19,9 +19,3 @@ install:
+ 		-t $(DESTDIR)$(systemd_userdir)/xdg-desktop-portal-gtk.service.d
+ 	install -Dm644 wayland/xdg-desktop-portal-wlr.conf \
+ 		-t $(DESTDIR)$(systemd_userdir)/xdg-desktop-portal-wlr.service.d
+-	: # Ensure critical environment variables transfer from sway
+-	install -Dm644 wayland/50-systemd-user.conf -t $(DESTDIR)/etc/sway/config.d
+-	: # SSH Agent
+-	install -Dm644 ssh-agent.service -t $(DESTDIR)$(systemd_userdir)
 -	: # Enable "the notch"
 -	install -Dm644 wayland/apple-dcp.conf -t $(DESTDIR)/lib/modprobe.d
+diff --git a/ssh-agent.service b/ssh-agent.service
+deleted file mode 100644
+index 9428410..0000000
+--- a/ssh-agent.service
++++ /dev/null
+@@ -1,10 +0,0 @@
+-[Unit]
+-Description=SSH key agent
+-
+-[Service]
+-Type=simple
+-Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+-ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
+-
+-[Install]
+-WantedBy=default.target
+diff --git a/wayland/50-systemd-user.conf b/wayland/50-systemd-user.conf
+deleted file mode 100644
+index ebbf37b..0000000
+--- a/wayland/50-systemd-user.conf
++++ /dev/null
+@@ -1,9 +0,0 @@
+-# sway does not set DISPLAY/WAYLAND_DISPLAY in the systemd user environment
+-# See FS#63021
+-# Adapted from xorg's 50-systemd-user.sh, which achieves a similar goal.
+-
+-exec systemctl --user import-environment \
+-     DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+-exec hash dbus-update-activation-environment 2>/dev/null \
+-     && dbus-update-activation-environment --systemd \
+-     DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
 diff --git a/wayland/apple-dcp.conf b/wayland/apple-dcp.conf
 deleted file mode 100644
 index 74e4e9b..0000000
@@ -34,10 +74,10 @@ index f8a01bb..482f96e 100644
  export XDG_CURRENT_DESKTOP=sway
 +export WLR_NO_HARDWARE_CURSORS=1
 diff --git a/wayland/greetd.toml b/wayland/greetd.toml
-index 9fc7a79..af083a2 100644
+index 9fc7a79..1e574c8 100644
 --- a/wayland/greetd.toml
 +++ b/wayland/greetd.toml
-@@ -8,7 +8,7 @@ vt = 1
+@@ -8,9 +8,9 @@ vt = 1
  
  # `agreety` is the bundled agetty/login-lookalike. You can replace `/bin/sh`
  # with whatever you want started, such as `sway`.
@@ -46,6 +86,9 @@ index 9fc7a79..af083a2 100644
  
  # The user to run the command as. The privileges this user must have depends
  # on the greeter. A graphical greeter may for example require the user to be
+ # in the `video` group.
+-user = "greetd"
++user = "greeter"
 -- 
 2.42.0
 
