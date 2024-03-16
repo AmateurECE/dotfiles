@@ -25,10 +25,6 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    ---@class LspPluginOpts
-    opts = {
-      autoformat = false,
-    },
   },
 
   {
