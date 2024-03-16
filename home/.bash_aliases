@@ -72,4 +72,7 @@ elif [[ -e "$XDG_RUNTIME_DIR/openssh_agent" ]]; then
 	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/openssh_agent"
 fi
 
-###############################################################################
+# Setup direnv, if direnv is installed
+if hash direnv 2>/dev/null; then
+  eval "$(direnv hook bash)"
+fi
