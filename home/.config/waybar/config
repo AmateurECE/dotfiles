@@ -2,7 +2,6 @@
     "layer": "top",
     "height": 34,
     "position": "top",
-    "modules-left": ["wlr/taskbar"],
     "modules-right": ["wireplumber", "idle_inhibitor", "network", "battery", "clock"],
     "clock": {
         "format": "{:%d %b %H:%M}",
