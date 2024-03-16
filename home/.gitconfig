@@ -23,3 +23,5 @@
 	smtpServerPort = 587
 	smtpEncryption = tls
 	smtpUser = ethan.twardy@gmail.com
+[color]
+	ui = auto
