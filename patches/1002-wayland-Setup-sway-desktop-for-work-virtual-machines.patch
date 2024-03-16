@@ -1,7 +1,7 @@
-From 945cb6f258c3760b30ccfcdb53f37f2f34aea867 Mon Sep 17 00:00:00 2001
+From 4351da740efb899d067abee8a1fdb2aacaf9f5e6 Mon Sep 17 00:00:00 2001
 From: "Ethan D. Twardy" <ethan.twardy@gmail.com>
 Date: Wed, 11 Oct 2023 21:21:36 -0500
-Subject: [PATCH] wayland: Setup sway desktop for work virtual machines
+Subject: [PATCH 3/3] wayland: Setup sway desktop for work virtual machines
 
  * Disable hardware cursors
  * Don't configure the apple-dcp driver
@@ -11,6 +11,22 @@ Subject: [PATCH] wayland: Setup sway desktop for work virtual machines
  * Switch greetd.toml to use "greeter" user instead of "greetd" user,
    since that's the name of the user created by the Arch package
    maintainers.
+ * Use sway/workspaces waybar module
+ * Use the default sway background
+ * Explicitly set the output resolution to 1920x1080
+---
+ Makefile                     |  6 ------
+ home/.config/sway/config     |  5 ++++-
+ home/.config/waybar/config   |  1 +
+ ssh-agent.service            | 10 ----------
+ wayland/50-systemd-user.conf |  9 ---------
+ wayland/apple-dcp.conf       |  1 -
+ wayland/cobblede.sh          |  1 +
+ wayland/greetd.toml          |  4 ++--
+ 8 files changed, 8 insertions(+), 29 deletions(-)
+ delete mode 100644 ssh-agent.service
+ delete mode 100644 wayland/50-systemd-user.conf
+ delete mode 100644 wayland/apple-dcp.conf
 
 diff --git a/Makefile b/Makefile
 index c30bd2d..5c28c47 100644
@@ -26,6 +42,34 @@ index c30bd2d..5c28c47 100644
 -	install -Dm644 ssh-agent.service -t $(DESTDIR)$(systemd_userdir)
 -	: # Enable "the notch"
 -	install -Dm644 wayland/apple-dcp.conf -t $(DESTDIR)/lib/modprobe.d
+diff --git a/home/.config/sway/config b/home/.config/sway/config
+index cbddf5a..9cb89f1 100644
+--- a/home/.config/sway/config
++++ b/home/.config/sway/config
+@@ -31,7 +31,10 @@ set $lock gtklock -s ~/.config/gtklock/style.css
+ # Output
+ ###
+ 
+-output * bg /usr/share/backgrounds/sway-background.png fill scale 2
++output * {
++  bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
++  resolution 1920x1080
++}
+ 
+ ###############################################################################
+ # Idle
+diff --git a/home/.config/waybar/config b/home/.config/waybar/config
+index c22c57d..beea750 100644
+--- a/home/.config/waybar/config
++++ b/home/.config/waybar/config
+@@ -2,6 +2,7 @@
+     "layer": "top",
+     "height": 34,
+     "position": "top",
++    "modules-left": ["sway/workspaces"],
+     "modules-right": ["wireplumber", "idle_inhibitor", "network", "battery", "clock"],
+     "clock": {
+         "format": "{:%d %b %H:%M}",
 diff --git a/ssh-agent.service b/ssh-agent.service
 deleted file mode 100644
 index 9428410..0000000
@@ -90,5 +134,5 @@ index 9fc7a79..1e574c8 100644
 -user = "greetd"
 +user = "greeter"
 -- 
-2.42.0
+2.44.0
 
