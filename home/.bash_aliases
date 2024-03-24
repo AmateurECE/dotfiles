@@ -74,5 +74,10 @@ fi
 
 # Setup direnv, if direnv is installed
 if hash direnv 2>/dev/null; then
-  eval "$(direnv hook bash)"
+	eval "$(direnv hook bash)"
+fi
+
+# Include programs installed with the nix profile
+if [[ -d "$HOME/.nix-profile/bin" ]]; then
+	export PATH="$HOME/.nix-profile/bin:$PATH"
 fi
