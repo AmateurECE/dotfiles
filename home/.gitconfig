@@ -3,7 +3,7 @@
 	name = Ethan D. Twardy
 	signingkey = 0FF164523340E827
 [core]
-	editor = /usr/bin/vi
+	editor = /usr/bin/env nvim
 	autocrlf = false
 [init]
 	defaultBranch = main
