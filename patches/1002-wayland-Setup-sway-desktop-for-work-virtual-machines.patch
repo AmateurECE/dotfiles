@@ -1,7 +1,8 @@
-From 4351da740efb899d067abee8a1fdb2aacaf9f5e6 Mon Sep 17 00:00:00 2001
+From 128d77701d99d9303f521695ae4619f2d6b9a99e Mon Sep 17 00:00:00 2001
 From: "Ethan D. Twardy" <ethan.twardy@gmail.com>
 Date: Wed, 11 Oct 2023 21:21:36 -0500
-Subject: [PATCH 3/3] wayland: Setup sway desktop for work virtual machines
+Subject: [PATCH 1002/1002] wayland: Setup sway desktop for work virtual
+ machines
 
  * Disable hardware cursors
  * Don't configure the apple-dcp driver

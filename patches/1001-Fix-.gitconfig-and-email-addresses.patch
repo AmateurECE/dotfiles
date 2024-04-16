@@ -1,7 +1,7 @@
-From 1e3e696928ae8030dc568df654b303b3a37e1c94 Mon Sep 17 00:00:00 2001
+From edf15eceff1f80b7ba4324cc03941246416dee19 Mon Sep 17 00:00:00 2001
 From: "Ethan D. Twardy" <ethan.twardy@gmail.com>
-Date: Sat, 16 Mar 2024 16:57:14 -0500
-Subject: [PATCH 2/3] Fix .gitconfig and email addresses
+Date: Tue, 16 Apr 2024 06:34:24 -0500
+Subject: [PATCH 1001/1002] Fix .gitconfig and email addresses
 
  * Don't gpgsign commits with my personal key
  * Don't use my git-sendemail configuration
@@ -14,7 +14,7 @@ Subject: [PATCH 2/3] Fix .gitconfig and email addresses
  3 files changed, 5 insertions(+), 11 deletions(-)
 
 diff --git a/home/.bash_aliases b/home/.bash_aliases
-index cf352f4..3c3d750 100644
+index 1271bde..5b47555 100644
 --- a/home/.bash_aliases
 +++ b/home/.bash_aliases
 @@ -27,7 +27,7 @@ alias rm='rm -i'
@@ -27,7 +27,7 @@ index cf352f4..3c3d750 100644
  
  # Used by various debian package maintainer tools
 diff --git a/home/.gitconfig b/home/.gitconfig
-index 8ff7a71..08c9564 100644
+index d226807..d08f42c 100644
 --- a/home/.gitconfig
 +++ b/home/.gitconfig
 @@ -1,7 +1,6 @@
@@ -37,7 +37,7 @@ index 8ff7a71..08c9564 100644
  	name = Ethan D. Twardy
 -	signingkey = 0FF164523340E827
  [core]
- 	editor = /usr/bin/vi
+ 	editor = /usr/bin/env nvim
  	autocrlf = false
 @@ -9,6 +8,8 @@
  	defaultBranch = main
