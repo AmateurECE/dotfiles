@@ -13,20 +13,7 @@ The Hyprland desktop theme uses this 10-color palette:
 
 ![palette](palette.jpg)
 
-Hex codes:
-
-```
-#000000
-#3a282e
-#56483e
-#784245
-#594d5a
-#776856
-#8b847a
-#d87264
-#a48d60
-#e8d175
-```
+Hex codes are in `palette.txt`.
 
 # Work patches
 
