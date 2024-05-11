@@ -7,23 +7,25 @@ printf '\nsource "$HOME/.homesick/repos/homeshick/homeshick.sh"' >> $HOME/.bashr
 homeshick clone https://github.com/AmateurECE/dotfiles
 ```
 
-# Setting up emacs
+# Desktop Color Palette
 
-Initialization will fail the first time Emacs is started, due to missing
-packages. The following commands will install the missing packages from my
-Emacs package repository:
+The Hyprland desktop theme uses this 10-color palette:
 
-```
-curl -O https://raw.githubusercontent.com/AmateurECE/Emacs-Extensions/master/insert-banner.el
-curl -O https://raw.githubusercontent.com/AmateurECE/Emacs-Extensions/master/local-snippet.el
-```
+![palette](palette.jpg)
 
-In Emacs, install the local packages, and all other required packages:
+Hex codes:
 
 ```
-M-x package-install-file insert-banner.el
-M-x package-install-file local-snippet.el
-M-x package-install-selected-packages
+#000000
+#3a282e
+#56483e
+#784245
+#594d5a
+#776856
+#8b847a
+#d87264
+#a48d60
+#e8d175
 ```
 
 # Work patches
