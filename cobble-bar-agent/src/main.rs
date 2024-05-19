@@ -3,10 +3,11 @@ use std::{
     mem, ptr,
 };
 
+use futures::try_join;
 use glib::clone;
 use libc::c_void;
 use sink::PrintSink;
-use widgets::clock::run_clock;
+use widgets::{clock::Clock, Widget};
 use wireplumber_sys::{
     g_clear_pointer, g_signal_connect_data, g_signal_emit_by_name, g_variant_lookup,
     g_variant_unref, gchar, wp_core_connect, wp_core_install_object_manager,
@@ -257,8 +258,10 @@ fn main() -> Result<(), anyhow::Error> {
 
     let context = glib::MainContext::default();
     context.spawn_local(clone!(@strong main_loop => async move {
-        let mut sink = PrintSink;
-        run_clock(&mut sink).await.unwrap();
+        let mut clock = Clock;
+        try_join!(
+            clock.run(PrintSink),
+        ).unwrap();
     }));
 
     main_loop.run();

@@ -4,6 +4,8 @@ use futures::{Sink, SinkExt as _};
 use glib::timeout_future;
 use libc::{timespec, CLOCK_REALTIME};
 
+use super::Widget;
+
 #[derive(Clone, Copy, PartialEq, Eq)]
 struct LocalTime {
     hours: u8,
@@ -64,26 +66,32 @@ fn get_time() -> Result<LocalTime, anyhow::Error> {
     timespec.try_into()
 }
 
-pub async fn run_clock<S>(sink: &mut S) -> Result<(), anyhow::Error>
-where
-    S: Sink<String> + Unpin,
-    <S as Sink<String>>::Error: std::error::Error + Send + Sync + 'static,
-{
-    loop {
-        let current_time = get_time()?;
-        let LocalTime {
-            hours,
-            minutes,
-            seconds,
-            nanoseconds,
-        } = current_time;
-        sink.send(format!("{hours:0>2}:{minutes:0>2}\n")).await?;
+pub struct Clock;
 
-        const NANOSECONDS_PER_SECOND: u64 = 1_000_000_000;
-        const NANOSECONDS_PER_MINUTE: u64 = 60 * NANOSECONDS_PER_SECOND;
-        let wait_duration = Duration::from_nanos(
-            NANOSECONDS_PER_MINUTE - (u64::from(seconds) * NANOSECONDS_PER_SECOND) - nanoseconds,
-        );
-        timeout_future(wait_duration).await;
+impl Widget for Clock {
+    async fn run<S>(&mut self, mut sink: S) -> Result<(), Box<dyn std::error::Error>>
+    where
+        S: Sink<String> + Unpin,
+        <S as Sink<String>>::Error: std::error::Error + Send + Sync + 'static,
+    {
+        loop {
+            let current_time = get_time()?;
+            let LocalTime {
+                hours,
+                minutes,
+                seconds,
+                nanoseconds,
+            } = current_time;
+            sink.send(format!("{hours:0>2}:{minutes:0>2}\n")).await?;
+
+            const NANOSECONDS_PER_SECOND: u64 = 1_000_000_000;
+            const NANOSECONDS_PER_MINUTE: u64 = 60 * NANOSECONDS_PER_SECOND;
+            let wait_duration = Duration::from_nanos(
+                NANOSECONDS_PER_MINUTE
+                    - (u64::from(seconds) * NANOSECONDS_PER_SECOND)
+                    - nanoseconds,
+            );
+            timeout_future(wait_duration).await;
+        }
     }
 }
