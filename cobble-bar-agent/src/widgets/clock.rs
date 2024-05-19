@@ -1,8 +1,8 @@
 use std::{io, ptr, time::Duration};
 
 use futures::{Sink, SinkExt as _};
+use glib::timeout_future;
 use libc::{timespec, CLOCK_REALTIME};
-use tokio::time;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 struct LocalTime {
@@ -84,6 +84,6 @@ where
         let wait_duration = Duration::from_nanos(
             NANOSECONDS_PER_MINUTE - (u64::from(seconds) * NANOSECONDS_PER_SECOND) - nanoseconds,
         );
-        time::sleep(wait_duration).await;
+        timeout_future(wait_duration).await;
     }
 }
