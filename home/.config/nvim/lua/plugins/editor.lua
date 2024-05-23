@@ -50,4 +50,6 @@ return {
   },
 
   { "akinsho/git-conflict.nvim", version = "*", config = true },
+
+  { "folke/flash.nvim", enabled = false },
 }
