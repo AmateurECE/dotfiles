@@ -9,6 +9,8 @@ and/or use gtk-doc annotations.  -->
   <include name="GLib" version="2.0"/>
   <include name="GObject" version="2.0"/>
   <include name="Gio" version="2.0"/>
+  <include name="libspa" version="0.2"/>
+  <include name="pipewire" version="0.3"/>
   <package name="wireplumber-0.5"/>
   <c:include name="wp/wp.h"/>
   <namespace name="Wp"
@@ -294,7 +296,7 @@ An object id of -1 can be used to set the default object permissions for this cl
             <array length="0"
                    zero-terminated="0"
                    c:type="const pw_permission*">
-              <type c:type="pw_permission"/>
+              <type name="pipewire.pw_permission" c:type="pw_permission"/>
             </array>
           </parameter>
         </parameters>
@@ -713,7 +715,7 @@ This does not open the files, it only creates the object. For most use cases, yo
             <doc xml:space="preserve"
                  filename="docs/wp-gtkdoc.h"
                  line="829">the associated pw_context</doc>
-            <type name="gpointer" c:type="pw_context*"/>
+            <type name="pipewire.pw_context" c:type="pw_context*"/>
           </parameter>
         </parameters>
       </method>
@@ -1119,7 +1121,7 @@ The export core is enabled by loading the built-in "export-core" component.</doc
           <doc xml:space="preserve"
                filename="docs/wp-gtkdoc.h"
                line="916">the internal pw_context object</doc>
-          <type name="gpointer" c:type="pw_context*"/>
+          <type name="pipewire.pw_context" c:type="pw_context*"/>
         </return-value>
         <parameters>
           <instance-parameter name="self" transfer-ownership="none">
@@ -1141,7 +1143,7 @@ The export core is enabled by loading the built-in "export-core" component.</doc
           <doc xml:space="preserve"
                filename="docs/wp-gtkdoc.h"
                line="929">the internal pw_core object, or NULL if the core is not connected to PipeWire</doc>
-          <type name="gpointer" c:type="pw_core*"/>
+          <type name="pipewire.pw_core" c:type="pw_core*"/>
         </return-value>
         <parameters>
           <instance-parameter name="self" transfer-ownership="none">
@@ -3464,7 +3466,7 @@ To export this node to the PipeWire server, you need to call wp_object_activate(
             <doc xml:space="preserve"
                  filename="docs/wp-gtkdoc.h"
                  line="2465">an existing pw_impl_node to wrap</doc>
-            <type name="gpointer" c:type="pw_impl_node*"/>
+            <type name="pipewire.pw_impl_node" c:type="pw_impl_node*"/>
           </parameter>
         </parameters>
       </constructor>
@@ -7701,7 +7703,7 @@ WpProperties is reference-counted with wp_properties_ref() and wp_properties_unr
             <doc xml:space="preserve"
                  filename="docs/wp-gtkdoc.h"
                  line="3196">a native pw_properties structure to copy</doc>
-            <type name="gpointer" c:type="const pw_properties*"/>
+            <type name="pipewire.pw_properties" c:type="const pw_properties*"/>
           </parameter>
         </parameters>
       </constructor>
@@ -7725,7 +7727,7 @@ WpProperties is reference-counted with wp_properties_ref() and wp_properties_unr
             <doc xml:space="preserve"
                  filename="docs/wp-gtkdoc.h"
                  line="3224">a native spa_dict structure to copy</doc>
-            <type name="gpointer" c:type="const spa_dict*"/>
+            <type name="libspa.spa_dict" c:type="const spa_dict*"/>
           </parameter>
         </parameters>
       </constructor>
@@ -7803,7 +7805,7 @@ In constrast with wp_properties_new_wrap(), this function assumes ownership of t
             <doc xml:space="preserve"
                  filename="docs/wp-gtkdoc.h"
                  line="3182">a native pw_properties structure to wrap</doc>
-            <type name="gpointer" c:type="pw_properties*"/>
+            <type name="pipewire.pw_properties" c:type="pw_properties*"/>
           </parameter>
         </parameters>
       </constructor>
@@ -7858,7 +7860,7 @@ Furthermore, note that the returned WpProperties object is immutable. That means
             <doc xml:space="preserve"
                  filename="docs/wp-gtkdoc.h"
                  line="3167">a native pw_properties structure to wrap</doc>
-            <type name="gpointer" c:type="const pw_properties*"/>
+            <type name="pipewire.pw_properties" c:type="const pw_properties*"/>
           </parameter>
         </parameters>
       </constructor>
@@ -7886,7 +7888,7 @@ In addition, note that the returned WpProperties object is immutable. That means
             <doc xml:space="preserve"
                  filename="docs/wp-gtkdoc.h"
                  line="3209">a native spa_dict structure to wrap</doc>
-            <type name="gpointer" c:type="const spa_dict*"/>
+            <type name="libspa.spa_dict" c:type="const spa_dict*"/>
           </parameter>
         </parameters>
       </constructor>
@@ -7947,7 +7949,7 @@ Properties (keys) from @dict that are already contained in @self are not modifie
             <doc xml:space="preserve"
                  filename="docs/wp-gtkdoc.h"
                  line="3341">a spa_dict that contains properties to add</doc>
-            <type name="gpointer" c:type="const spa_dict*"/>
+            <type name="libspa.spa_dict" c:type="const spa_dict*"/>
           </parameter>
         </parameters>
       </method>
@@ -8059,7 +8061,7 @@ Unlike wp_properties_add_from_dict(), this function only adds properties that ha
             <doc xml:space="preserve"
                  filename="docs/wp-gtkdoc.h"
                  line="3422">a spa_dict that contains properties to add</doc>
-            <type name="gpointer" c:type="const spa_dict*"/>
+            <type name="libspa.spa_dict" c:type="const spa_dict*"/>
           </parameter>
           <parameter name="key1" transfer-ownership="none">
             <doc xml:space="preserve"
@@ -8229,7 +8231,7 @@ If a property is contained in @other and not in @self, the result is not matched
           <doc xml:space="preserve"
                filename="docs/wp-gtkdoc.h"
                line="3622">the internal properties set as a struct spa_dict *</doc>
-          <type name="gpointer" c:type="const spa_dict*"/>
+          <type name="libspa.spa_dict" c:type="const spa_dict*"/>
         </return-value>
         <parameters>
           <instance-parameter name="self" transfer-ownership="none">
@@ -8395,7 +8397,7 @@ If the @value is NULL, then the specified property is removed from @self</doc>
           <doc xml:space="preserve"
                filename="docs/wp-gtkdoc.h"
                line="3635">a copy of the properties in @self as a struct pw_properties</doc>
-          <type name="gpointer" c:type="pw_properties*"/>
+          <type name="pipewire.pw_properties" c:type="pw_properties*"/>
         </return-value>
         <parameters>
           <instance-parameter name="self" transfer-ownership="none">
@@ -8436,7 +8438,7 @@ If @self is not uniquely owned (see wp_properties_ensure_unique_owner()), then t
           <doc xml:space="preserve"
                filename="docs/wp-gtkdoc.h"
                line="3649">the properties in @self as a struct pw_properties</doc>
-          <type name="gpointer" c:type="pw_properties*"/>
+          <type name="pipewire.pw_properties" c:type="pw_properties*"/>
         </return-value>
         <parameters>
           <instance-parameter name="self" transfer-ownership="full">
@@ -8505,7 +8507,7 @@ Any properties that are not contained in @dict are left untouched.</doc>
             <doc xml:space="preserve"
                  filename="docs/wp-gtkdoc.h"
                  line="3296">a spa_dict that contains properties to update</doc>
-            <type name="gpointer" c:type="const spa_dict*"/>
+            <type name="libspa.spa_dict" c:type="const spa_dict*"/>
           </parameter>
         </parameters>
       </method>
@@ -8647,7 +8649,7 @@ Unlike wp_properties_update_from_dict(), this function only updates properties t
             <doc xml:space="preserve"
                  filename="docs/wp-gtkdoc.h"
                  line="3373">a spa_dict that contains properties to update</doc>
-            <type name="gpointer" c:type="const spa_dict*"/>
+            <type name="libspa.spa_dict" c:type="const spa_dict*"/>
           </parameter>
           <parameter name="key1" transfer-ownership="none">
             <doc xml:space="preserve"
@@ -8815,7 +8817,7 @@ This base class cannot be instantiated. It provides handling of pw_proxy's event
                      transfer-ownership="none"
                      nullable="1"
                      allow-none="1">
-            <type name="gpointer" c:type="pw_proxy*"/>
+            <type name="pipewire.pw_proxy" c:type="pw_proxy*"/>
           </parameter>
         </parameters>
       </virtual-method>
@@ -8899,7 +8901,7 @@ Requires WP_PROXY_FEATURE_BOUND</doc>
           <doc xml:space="preserve"
                filename="docs/wp-gtkdoc.h"
                line="3863">a pointer to the underlying pw_proxy object</doc>
-          <type name="gpointer" c:type="pw_proxy*"/>
+          <type name="pipewire.pw_proxy" c:type="pw_proxy*"/>
         </return-value>
         <parameters>
           <instance-parameter name="self" transfer-ownership="none">
@@ -8929,7 +8931,7 @@ This can be called only if there is no pw_proxy already set. Takes ownership of 
                      transfer-ownership="none"
                      nullable="1"
                      allow-none="1">
-            <type name="gpointer" c:type="pw_proxy*"/>
+            <type name="pipewire.pw_proxy" c:type="pw_proxy*"/>
           </parameter>
         </parameters>
       </method>
@@ -9019,7 +9021,7 @@ This can be called only if there is no pw_proxy already set. Takes ownership of 
                        transfer-ownership="none"
                        nullable="1"
                        allow-none="1">
-              <type name="gpointer" c:type="pw_proxy*"/>
+              <type name="pipewire.pw_proxy" c:type="pw_proxy*"/>
             </parameter>
           </parameters>
         </callback>
@@ -9171,15 +9173,6 @@ This can be called only if there is no pw_proxy already set. Takes ownership of 
               c:type="WP_SETTINGS_SCHEMA_METADATA_NAME_PREFIX">
       <source-position filename="lib/wp/settings.h" line="15"/>
       <type name="utf8" c:type="gchar*"/>
-    </constant>
-    <constant name="SPA_TYPE_INVALID"
-              value="4294967295"
-              c:type="WP_SPA_TYPE_INVALID">
-      <doc xml:space="preserve"
-           filename="docs/wp-gtkdoc.h"
-           line="7745">Type id representing an invalid SPA type.</doc>
-      <source-position filename="docs/wp-gtkdoc.h" line="7754"/>
-      <type name="SpaType" c:type="WpSpaType"/>
     </constant>
     <class name="SessionItem"
            c:symbol-prefix="session_item"
@@ -12637,7 +12630,7 @@ To export this device to the PipeWire server, you need to call wp_object_activat
             <doc xml:space="preserve"
                  filename="docs/wp-gtkdoc.h"
                  line="4772">a spa_json</doc>
-            <type name="gpointer" c:type="spa_json*"/>
+            <type name="libspa.spa_json" c:type="spa_json*"/>
           </parameter>
         </parameters>
       </constructor>
@@ -12781,7 +12774,7 @@ To export this device to the PipeWire server, you need to call wp_object_activat
           <doc xml:space="preserve"
                filename="docs/wp-gtkdoc.h"
                line="4792">a const pointer to the underlying spa_json structure</doc>
-          <type name="gpointer" c:type="const spa_json*"/>
+          <type name="libspa.spa_json" c:type="const spa_json*"/>
         </return-value>
         <parameters>
           <instance-parameter name="self" transfer-ownership="none">
@@ -14516,7 +14509,7 @@ the returned spa json object references the original data instead of copying it,
             <doc xml:space="preserve"
                  filename="docs/wp-gtkdoc.h"
                  line="5668">a spa_pod</doc>
-            <type name="gpointer" c:type="spa_pod*"/>
+            <type name="libspa.spa_pod" c:type="spa_pod*"/>
           </parameter>
         </parameters>
       </constructor>
@@ -14540,7 +14533,7 @@ the returned spa json object references the original data instead of copying it,
             <doc xml:space="preserve"
                  filename="docs/wp-gtkdoc.h"
                  line="5681">a constant spa_pod</doc>
-            <type name="gpointer" c:type="const spa_pod*"/>
+            <type name="libspa.spa_pod" c:type="const spa_pod*"/>
           </parameter>
         </parameters>
       </constructor>
@@ -15238,7 +15231,7 @@ the returned spa json object references the original data instead of copying it,
           <doc xml:space="preserve"
                filename="docs/wp-gtkdoc.h"
                line="5701">a const pointer to the underlying spa_pod structure</doc>
-          <type name="gpointer" c:type="const spa_pod*"/>
+          <type name="libspa.spa_pod" c:type="const spa_pod*"/>
         </return-value>
         <parameters>
           <instance-parameter name="self" transfer-ownership="none">
@@ -18764,7 +18757,7 @@ Note that both @name and @values must be statically allocated, or otherwise guar
           <doc xml:space="preserve"
                filename="docs/wp-gtkdoc.h"
                line="7732">an array of spa_type_info that contains the values of the table</doc>
-          <type name="gpointer" c:type="const spa_type_info*"/>
+          <type name="libspa.spa_type_info" c:type="const spa_type_info*"/>
         </parameter>
       </parameters>
     </function>
@@ -18831,7 +18824,7 @@ Note that both @name and @values must be statically allocated, or otherwise guar
           <doc xml:space="preserve"
                filename="docs/wp-gtkdoc.h"
                line="7716">an array of spa_type_info that contains the values of the type, used only for Object types</doc>
-          <type name="gpointer" c:type="const spa_type_info*"/>
+          <type name="libspa.spa_type_info" c:type="const spa_type_info*"/>
         </parameter>
       </parameters>
     </function>
@@ -19198,7 +19191,7 @@ When the returned type is (or is derived from) SPA_TYPE_Id or SPA_TYPE_Object, @
         <doc xml:space="preserve"
              filename="docs/wp-gtkdoc.h"
              line="2067">WirePlumber's instance of spa_log, which can be used to redirect PipeWire's log messages to the currently installed GLogWriterFunc. This is installed automatically when you call wp_init() with WP_INIT_SET_PW_LOG set in the flags</doc>
-        <type name="gpointer" c:type="spa_log*"/>
+        <type name="libspa.spa_log" c:type="spa_log*"/>
       </return-value>
     </function>
     <function-macro name="trace" c:identifier="wp_trace" introspectable="0">

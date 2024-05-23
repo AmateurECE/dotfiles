@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<repository version="1.2"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <package name="pipewire-0.3"/>
+  <c:include name="pipewire/pipewire.h"/>
+  <namespace name="pipewire" version="0.3">
+    <record name="pw_proxy" c:type="pw_proxy"/>
+    <record name="pw_impl_node" c:type="pw_impl_node"/>
+    <record name="pw_core" c:type="pw_core"/>
+    <record name="pw_context" c:type="pw_context"/>
+    <record name="pw_properties" c:type="pw_properties"/>
+    <record name="pw_permission" c:type="pw_permission"/>
+  </namespace>
+</repository>

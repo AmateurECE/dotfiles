@@ -1,0 +1,16 @@
+[options]
+library = "Wp"
+version = "0.5"
+min_cfg_version = "0.5"
+target_path = "."
+girs_directories = ["./gir-1.0", "/usr/share/gir-1.0"]
+work_mode = "sys"
+single_version_file = true
+external_libraries = [
+  "GLib",
+  "Gio",
+  "GObject",
+  "pipewire",
+  "libspa",
+]
+ignore = ["Wp.WP_SPA_TYPE_INVALID"]

@@ -1,0 +1,40 @@
+[package]
+name = "wp-sys"
+version = "0.0.1"
+edition = "2021"
+build = "build.rs"
+
+[package.metadata.system-deps.wireplumber_0_5]
+name = "wireplumber-0.5"
+version = "0.5"
+
+[package.metadata.docs.rs]
+rustc-args = ["--cfg", "docsrs"]
+rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
+all-features = true
+
+[lib]
+name = "wp_sys"
+
+[dependencies]
+libc = "0.2"
+pipewire-sys = "0.8.0"
+libspa-sys = "0.8.0"
+
+[dependencies.glib-sys]
+git = "https://github.com/gtk-rs/gtk-rs-core"
+
+[dependencies.gio-sys]
+git = "https://github.com/gtk-rs/gtk-rs-core"
+
+[dependencies.gobject-sys]
+git = "https://github.com/gtk-rs/gtk-rs-core"
+
+[build-dependencies]
+system-deps = "6"
+
+[dev-dependencies]
+shell-words = "1.0.0"
+tempfile = "3"
+
+[features]

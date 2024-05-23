@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<repository version="1.2"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <package name="libspa-0.2"/>
+  <c:include name="spa/support/log.h"/>
+  <namespace name="libspa" version="0.2">
+    <record name="spa_log" c:type="spa_log"/>
+    <record name="spa_pod" c:type="spa_pod"/>
+    <record name="spa_type_info" c:type="spa_type_info"/>
+    <record name="spa_json" c:type="spa_json"/>
+    <record name="spa_dict" c:type="spa_dict"/>
+  </namespace>
+</repository>
