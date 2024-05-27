@@ -1,5 +1,5 @@
 [package]
-name = "wp-sys"
+name = "wireplumber-sys"
 version = "0.0.1"
 edition = "2021"
 build = "build.rs"
@@ -23,12 +23,15 @@ libspa-sys = "0.8.0"
 
 [dependencies.glib-sys]
 git = "https://github.com/gtk-rs/gtk-rs-core"
+rev = "4f30a037"
 
 [dependencies.gio-sys]
 git = "https://github.com/gtk-rs/gtk-rs-core"
+rev = "4f30a037"
 
 [dependencies.gobject-sys]
 git = "https://github.com/gtk-rs/gtk-rs-core"
+rev = "4f30a037"
 
 [build-dependencies]
 system-deps = "6"

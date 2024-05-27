@@ -6,6 +6,12 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.83"
 futures = "0.3.30"
-glib = "0.19.6"
+gio-sys = { git = "https://github.com/gtk-rs/gtk-rs-core", rev = "4f30a037" }
+glib-sys = { git = "https://github.com/gtk-rs/gtk-rs-core", rev = "4f30a037" }
+gobject-sys = { git = "https://github.com/gtk-rs/gtk-rs-core", rev = "4f30a037" }
+glib = { git = "https://github.com/gtk-rs/gtk-rs-core", rev = "4f30a037" }
 libc = "0.2.154"
-wireplumber-sys = { path = "../wireplumber-sys" }
+
+[dependencies.ffi]
+package = "wireplumber-sys"
+path = "../wireplumber-sys"

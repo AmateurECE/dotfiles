@@ -3,21 +3,24 @@ use std::{
     mem, ptr,
 };
 
+use ffi::{
+    wp_core_connect, wp_core_install_object_manager, wp_core_load_component,
+    wp_core_load_component_finish, wp_core_new, wp_init, wp_node_get_type, wp_object_activate,
+    wp_object_activate_finish, wp_object_manager_add_interest, wp_object_manager_new,
+    wp_plugin_find, wp_plugin_get_name, WpCore, WpObject, WpObjectManager, WpPlugin,
+    WP_CONSTRAINT_TYPE_PW_PROPERTY, WP_INIT_PIPEWIRE, WP_PLUGIN_FEATURE_ENABLED,
+};
 use futures::try_join;
-use glib::clone;
+use gio_sys::GAsyncResult;
+use glib::{
+    clone,
+    ffi::{g_clear_pointer, g_variant_lookup, g_variant_unref, GVariant},
+    gobject_ffi::{g_signal_connect_data, g_signal_emit_by_name, G_CONNECT_SWAPPED},
+};
+use gobject_sys::GObject;
 use libc::c_void;
 use sink::PrintSink;
 use widgets::{clock::Clock, Widget};
-use wireplumber_sys::{
-    g_clear_pointer, g_signal_connect_data, g_signal_emit_by_name, g_variant_lookup,
-    g_variant_unref, gchar, wp_core_connect, wp_core_install_object_manager,
-    wp_core_load_component, wp_core_load_component_finish, wp_core_new, wp_init, wp_node_get_type,
-    wp_object_activate, wp_object_activate_finish, wp_object_manager_add_interest,
-    wp_object_manager_new, wp_plugin_find, wp_plugin_get_name, GAsyncResult,
-    GConnectFlags_G_CONNECT_SWAPPED, GError, GObject, GVariant,
-    WpConstraintType_WP_CONSTRAINT_TYPE_PW_PROPERTY, WpCore, WpInitFlags_WP_INIT_PIPEWIRE,
-    WpObject, WpObjectManager, WpPlugin, WpPluginFeatures_WP_PLUGIN_FEATURE_ENABLED,
-};
 
 mod sink;
 mod widgets;
@@ -37,13 +40,11 @@ unsafe extern "C" fn print_volume(context: *mut PluginContext) {
     let default_nodes_api = CString::new("default-nodes-api").unwrap();
     let default_nodes_api = wp_plugin_find(core, default_nodes_api.as_ptr() as *mut _);
 
-    let signal = CString::new("get-default-node").unwrap();
-    let target = CString::new("Audio/Sink").unwrap();
     let mut node_id: u32 = 0;
     g_signal_emit_by_name(
-        default_nodes_api as *mut c_void,
-        signal.as_ptr() as *mut gchar,
-        target.as_ptr() as *mut gchar,
+        default_nodes_api as *mut _,
+        b"get-default-node\0".as_ptr(),
+        b"Audio/Sink\0".as_ptr(),
         &mut node_id as *mut u32,
     );
 
@@ -52,8 +53,8 @@ unsafe extern "C" fn print_volume(context: *mut PluginContext) {
     let mut variant: *mut GVariant = ptr::null_mut();
     let signal = CString::new("get-volume").unwrap();
     g_signal_emit_by_name(
-        mixer_api as *mut c_void,
-        signal.as_ptr() as *mut gchar,
+        mixer_api as *mut _,
+        signal.as_ptr() as *mut _,
         node_id,
         &mut variant as *mut *mut _,
     );
@@ -86,12 +87,12 @@ unsafe extern "C" fn on_object_manager_installed(context: *mut PluginContext) {
     let callback: unsafe extern "C" fn() = mem::transmute(print_volume as *const c_void);
     let signal = CString::new("changed").unwrap();
     g_signal_connect_data(
-        mixer_api as *mut c_void,
+        mixer_api as *mut _,
         signal.as_ptr() as *const _,
         Some(callback),
         context as *mut c_void,
         None,
-        GConnectFlags_G_CONNECT_SWAPPED,
+        G_CONNECT_SWAPPED,
     );
 }
 
@@ -102,9 +103,8 @@ unsafe extern "C" fn on_plugin_activated(
 ) {
     let name = wp_plugin_get_name(plugin as *mut WpPlugin);
     let name = CStr::from_ptr(name).to_str().unwrap();
-    let mut error: *mut GError = ptr::null_mut();
-    let success =
-        wp_object_activate_finish(plugin as *mut WpObject, result, &mut error as *mut *mut _);
+    let mut error = ptr::null_mut();
+    let success = wp_object_activate_finish(plugin as *mut WpObject, result, &mut error);
     if success == 0 {
         if !error.is_null() {
             let message = CString::from_raw((*error).message).into_string().unwrap();
@@ -132,9 +132,9 @@ unsafe extern "C" fn on_mixer_api_loaded(
     data: *mut c_void,
 ) {
     let context = data as *mut PluginContext;
-    let mut error: *mut GError = ptr::null_mut();
+    let mut error = ptr::null_mut();
     let PluginContext { core, .. } = *context;
-    let success = wp_core_load_component_finish(core, result, &mut error as *mut *mut _);
+    let success = wp_core_load_component_finish(core, result, &mut error);
     if success == 0 {
         panic!("Couldn't load mixer api!");
     }
@@ -143,7 +143,7 @@ unsafe extern "C" fn on_mixer_api_loaded(
     let default_nodes_api = wp_plugin_find(core, default_nodes_api.as_ptr() as *mut _);
     wp_object_activate(
         default_nodes_api as *mut WpObject,
-        WpPluginFeatures_WP_PLUGIN_FEATURE_ENABLED,
+        WP_PLUGIN_FEATURE_ENABLED,
         ptr::null_mut(),
         Some(on_plugin_activated),
         data,
@@ -153,7 +153,7 @@ unsafe extern "C" fn on_mixer_api_loaded(
     let mixer_api = wp_plugin_find(core, mixer_api.as_ptr() as *mut _);
     wp_object_activate(
         mixer_api as *mut WpObject,
-        WpPluginFeatures_WP_PLUGIN_FEATURE_ENABLED,
+        WP_PLUGIN_FEATURE_ENABLED,
         ptr::null_mut(),
         Some(on_plugin_activated),
         data,
@@ -167,8 +167,8 @@ unsafe extern "C" fn on_default_nodes_api_loaded(
 ) {
     let context = data as *mut PluginContext;
     let PluginContext { core, .. } = *context;
-    let mut error: *mut GError = ptr::null_mut();
-    let success = wp_core_load_component_finish(core, result, &mut error as *mut *mut _);
+    let mut error = ptr::null_mut();
+    let success = wp_core_load_component_finish(core, result, &mut error);
     if success == 0 {
         panic!("Couldn't load default nodes api!");
     }
@@ -210,7 +210,7 @@ unsafe fn get_volume(context: &mut PluginContext) {
     wp_object_manager_add_interest(
         object_manager,
         wp_node_get_type(),
-        WpConstraintType_WP_CONSTRAINT_TYPE_PW_PROPERTY,
+        WP_CONSTRAINT_TYPE_PW_PROPERTY,
         class.as_ptr() as *const u8,
         second.as_ptr() as *const u8,
         third.as_ptr() as *const u8,
@@ -225,12 +225,12 @@ unsafe fn get_volume(context: &mut PluginContext) {
     let callback: unsafe extern "C" fn() =
         mem::transmute::<_, _>(on_object_manager_installed as *const c_void);
     g_signal_connect_data(
-        object_manager as *mut c_void,
-        signal.as_ptr() as *const gchar,
+        object_manager as *mut _,
+        signal.as_ptr() as *const _,
         Some(callback),
         context as *mut _ as *mut _,
         None,
-        GConnectFlags_G_CONNECT_SWAPPED,
+        G_CONNECT_SWAPPED,
     );
 
     let component = CString::new("libwireplumber-module-default-nodes-api").unwrap();
@@ -250,7 +250,7 @@ unsafe fn get_volume(context: &mut PluginContext) {
 
 fn main() -> Result<(), anyhow::Error> {
     // TODO: Lazy once?
-    unsafe { wp_init(WpInitFlags_WP_INIT_PIPEWIRE) };
+    unsafe { wp_init(WP_INIT_PIPEWIRE) };
     let mut context = unsafe { make_plugin_context() };
 
     let main_loop = glib::MainLoop::new(None, false);
