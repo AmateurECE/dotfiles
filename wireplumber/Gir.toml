@@ -1,0 +1,38 @@
+[options]
+library = "Wp"
+version = "0.5"
+min_cfg_version = "0.5"
+target_path = "."
+girs_directories = ["../gir-1.0", "/usr/share/gir-1.0"]
+work_mode = "normal"
+single_version_file = true
+generate_safety_asserts = true
+deprecate_by_min_version = true
+
+generate = [
+  "Wp.Core",
+  "Wp.Conf",
+  "Wp.Properties",
+  "Wp.ObjectManager",
+  "Wp.ObjectInterest",
+  "Wp.Node",
+  "Wp.ConstraintVerb",
+  "Wp.ConstraintType",
+  "Wp.SpaJson",
+  "Wp.Plugin",
+  "Wp.Object",
+  "Wp.ObjectFeatures",
+  "Wp.PluginFeatures",
+]
+
+manual = [
+  "GLib.MainContext",
+  "GLib.Source",
+  "GLib.Error",
+  "Gio.AsyncReadyCallback",
+  "GObject.Value",
+  "Gio.Cancellable",
+  "GObject.Closure",
+  "GObject.Object",
+  "GLib.Variant",
+]

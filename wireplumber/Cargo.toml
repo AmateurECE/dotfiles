@@ -1,0 +1,42 @@
+[package]
+name = "wireplumber"
+version = "0.1.0"
+edition = "2021"
+
+[package.metadata.docs.rs]
+all-features = true
+# For build.rs scripts
+rustc-args = ["--cfg", "docsrs"]
+# For rustdoc
+rustdoc-args = ["--cfg", "docsrs"]
+
+[dependencies]
+libc = "0.2"
+bitflags = "2.2"
+
+[dependencies.pipewire]
+package = "pipewire-sys"
+version = "0.8.0"
+
+[dependencies.libspa]
+package = "libspa-sys"
+version = "0.8.0"
+
+[dependencies.ffi]
+package = "wireplumber-sys"
+path = "../wireplumber-sys"
+
+[dependencies.glib]
+package = "glib"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+rev = "4f30a037"
+
+[dependencies.gobject]
+package = "gobject-sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+rev = "4f30a037"
+
+[dependencies.gio]
+package = "gio"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+rev = "4f30a037"
