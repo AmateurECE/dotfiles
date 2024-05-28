@@ -28,7 +28,6 @@ impl IntoGlib for PluginFeatures {
 impl FromGlib<ffi::WpPluginFeatures> for PluginFeatures {
     #[inline]
     unsafe fn from_glib(value: ffi::WpPluginFeatures) -> Self {
-        skip_assert_initialized!();
         Self::from_bits_truncate(value)
     }
 }
@@ -60,7 +59,6 @@ unsafe impl<'a> glib::value::FromValue<'a> for PluginFeatures {
 
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
-        skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
     }
 }
@@ -84,7 +82,6 @@ impl ToValue for PluginFeatures {
 impl From<PluginFeatures> for glib::Value {
     #[inline]
     fn from(v: PluginFeatures) -> Self {
-        skip_assert_initialized!();
         ToValue::to_value(&v)
     }
 }

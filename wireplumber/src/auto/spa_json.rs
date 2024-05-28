@@ -29,27 +29,23 @@ impl SpaJson {
 
     #[doc(alias = "wp_spa_json_new_boolean")]
     pub fn new_boolean(value: bool) -> SpaJson {
-        assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::wp_spa_json_new_boolean(value.into_glib())) }
     }
 
     #[doc(alias = "wp_spa_json_new_float")]
     pub fn new_float(value: f32) -> SpaJson {
-        assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::wp_spa_json_new_float(value)) }
     }
 
     #[doc(alias = "wp_spa_json_new_from_string")]
     #[doc(alias = "new_from_string")]
     pub fn from_string(json_str: &str) -> SpaJson {
-        assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::wp_spa_json_new_from_string(json_str.to_glib_none().0)) }
     }
 
     #[doc(alias = "wp_spa_json_new_from_stringn")]
     #[doc(alias = "new_from_stringn")]
     pub fn from_stringn(json_str: &str) -> SpaJson {
-        assert_initialized_main_thread!();
         let len = json_str.len() as _;
         unsafe {
             from_glib_full(ffi::wp_spa_json_new_from_stringn(
@@ -61,13 +57,11 @@ impl SpaJson {
 
     #[doc(alias = "wp_spa_json_new_int")]
     pub fn new_int(value: i32) -> SpaJson {
-        assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::wp_spa_json_new_int(value)) }
     }
 
     #[doc(alias = "wp_spa_json_new_null")]
     pub fn new_null() -> SpaJson {
-        assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::wp_spa_json_new_null()) }
     }
 
@@ -83,7 +77,6 @@ impl SpaJson {
 
     #[doc(alias = "wp_spa_json_new_string")]
     pub fn new_string(value: &str) -> SpaJson {
-        assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::wp_spa_json_new_string(value.to_glib_none().0)) }
     }
 
@@ -94,13 +87,11 @@ impl SpaJson {
 
     #[doc(alias = "wp_spa_json_new_wrap_string")]
     pub fn new_wrap_string(json_str: &str) -> SpaJson {
-        assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::wp_spa_json_new_wrap_string(json_str.to_glib_none().0)) }
     }
 
     #[doc(alias = "wp_spa_json_new_wrap_stringn")]
     pub fn new_wrap_stringn(json_str: &str) -> SpaJson {
-        assert_initialized_main_thread!();
         let len = json_str.len() as _;
         unsafe {
             from_glib_full(ffi::wp_spa_json_new_wrap_stringn(

@@ -40,7 +40,7 @@ pub use self::flags::PluginFeatures;
 mod alias;
 pub use self::alias::ObjectFeatures;
 
-pub(crate) mod traits {
+pub mod traits {
     pub use super::object::ObjectExt;
     pub use super::plugin::PluginExt;
 }

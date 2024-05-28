@@ -41,8 +41,6 @@ impl IntoGlib for ConstraintType {
 impl FromGlib<ffi::WpConstraintType> for ConstraintType {
     #[inline]
     unsafe fn from_glib(value: ffi::WpConstraintType) -> Self {
-        skip_assert_initialized!();
-
         match value {
             ffi::WP_CONSTRAINT_TYPE_NONE => Self::None,
             ffi::WP_CONSTRAINT_TYPE_PW_GLOBAL_PROPERTY => Self::PwGlobalProperty,
@@ -80,7 +78,6 @@ unsafe impl<'a> glib::value::FromValue<'a> for ConstraintType {
 
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
-        skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
@@ -104,7 +101,6 @@ impl ToValue for ConstraintType {
 impl From<ConstraintType> for glib::Value {
     #[inline]
     fn from(v: ConstraintType) -> Self {
-        skip_assert_initialized!();
         ToValue::to_value(&v)
     }
 }
@@ -154,8 +150,6 @@ impl IntoGlib for ConstraintVerb {
 impl FromGlib<ffi::WpConstraintVerb> for ConstraintVerb {
     #[inline]
     unsafe fn from_glib(value: ffi::WpConstraintVerb) -> Self {
-        skip_assert_initialized!();
-
         match value {
             ffi::WP_CONSTRAINT_VERB_EQUALS => Self::Equals,
             ffi::WP_CONSTRAINT_VERB_NOT_EQUALS => Self::NotEquals,
@@ -196,7 +190,6 @@ unsafe impl<'a> glib::value::FromValue<'a> for ConstraintVerb {
 
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
-        skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
@@ -220,7 +213,6 @@ impl ToValue for ConstraintVerb {
 impl From<ConstraintVerb> for glib::Value {
     #[inline]
     fn from(v: ConstraintVerb) -> Self {
-        skip_assert_initialized!();
         ToValue::to_value(&v)
     }
 }

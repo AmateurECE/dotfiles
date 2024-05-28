@@ -18,7 +18,6 @@ glib::wrapper! {
 impl Conf {
     #[doc(alias = "wp_conf_new")]
     pub fn new(name: &str, properties: Option<Properties>) -> Conf {
-        assert_initialized_main_thread!();
         unsafe {
             from_glib_full(ffi::wp_conf_new(
                 name.to_glib_none().0,
@@ -32,7 +31,6 @@ impl Conf {
         name: &str,
         properties: Option<Properties>,
     ) -> Result<Option<Conf>, glib::Error> {
-        assert_initialized_main_thread!();
         unsafe {
             let mut error = std::ptr::null_mut();
             let ret = ffi::wp_conf_new_open(

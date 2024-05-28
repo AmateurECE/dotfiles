@@ -23,7 +23,6 @@ glib::wrapper! {
 impl ObjectManager {
     #[doc(alias = "wp_object_manager_new")]
     pub fn new() -> ObjectManager {
-        assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::wp_object_manager_new()) }
     }
 

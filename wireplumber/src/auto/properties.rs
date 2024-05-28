@@ -35,19 +35,16 @@ impl Properties {
 
     #[doc(alias = "wp_properties_new_empty")]
     pub fn new_empty() -> Properties {
-        assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::wp_properties_new_empty()) }
     }
 
     #[doc(alias = "wp_properties_new_json")]
     pub fn new_json(json: &SpaJson) -> Properties {
-        assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::wp_properties_new_json(json.to_glib_none().0)) }
     }
 
     #[doc(alias = "wp_properties_new_string")]
     pub fn new_string(str: &str) -> Properties {
-        assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::wp_properties_new_string(str.to_glib_none().0)) }
     }
 

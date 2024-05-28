@@ -15,12 +15,17 @@ glib::wrapper! {
     }
 }
 
+// NOTE: Have to implement these manually to allow wrapping Plugins in Arc, etc. This should be
+// accompanied by a review of the wireplumber source to ensure these markers can reasonably be
+// supported.
+unsafe impl Send for Plugin {}
+unsafe impl Sync for Plugin {}
+
 impl Plugin {
     pub const NONE: Option<&'static Plugin> = None;
 
     #[doc(alias = "wp_plugin_find")]
     pub fn find(core: &Core, plugin_name: &str) -> Option<Plugin> {
-        skip_assert_initialized!();
         unsafe {
             from_glib_full(ffi::wp_plugin_find(
                 core.to_glib_none().0,

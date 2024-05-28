@@ -27,7 +27,6 @@ impl Core {
         conf: Option<Conf>,
         properties: Option<Properties>,
     ) -> Core {
-        assert_initialized_main_thread!();
         unsafe {
             from_glib_full(ffi::wp_core_new(
                 context.to_glib_none().0,
@@ -249,7 +248,7 @@ impl Core {
                 provides.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                data.to_glib_none_mut().0,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }

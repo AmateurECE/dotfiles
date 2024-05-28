@@ -25,7 +25,6 @@ impl ObjectInterest {
 
     #[doc(alias = "wp_object_interest_new_type")]
     pub fn new_type(gtype: glib::types::Type) -> ObjectInterest {
-        assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::wp_object_interest_new_type(gtype.into_glib())) }
     }
 

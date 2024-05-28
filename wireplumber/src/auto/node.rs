@@ -28,7 +28,6 @@ impl Node {
         factory_name: &str,
         properties: Option<Properties>,
     ) -> Option<Node> {
-        skip_assert_initialized!();
         unsafe {
             from_glib_full(ffi::wp_node_new_from_factory(
                 core.to_glib_none().0,
