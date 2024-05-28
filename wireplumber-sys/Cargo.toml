@@ -13,9 +13,6 @@ rustc-args = ["--cfg", "docsrs"]
 rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
 all-features = true
 
-[lib]
-name = "wp_sys"
-
 [dependencies]
 libc = "0.2"
 pipewire-sys = "0.8.0"
