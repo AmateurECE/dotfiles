@@ -1,11 +1,11 @@
 use std::{io, ptr, time::Duration};
 
+use cobble_bar::sink::PrintSink;
 use futures::{Sink, SinkExt as _};
 use glib::timeout_future;
 use libc::{timespec, CLOCK_REALTIME};
 
-use super::Widget;
-
+/// System time, according to the current timezone and system clock.
 #[derive(Clone, Copy, PartialEq, Eq)]
 struct LocalTime {
     hours: u8,
@@ -52,6 +52,7 @@ impl TryFrom<timespec> for LocalTime {
     }
 }
 
+/// Get the current time from the system.
 fn get_time() -> Result<LocalTime, anyhow::Error> {
     let mut timespec = timespec {
         tv_sec: 0,
@@ -67,9 +68,8 @@ fn get_time() -> Result<LocalTime, anyhow::Error> {
 }
 
 pub struct Clock;
-
-impl Widget for Clock {
-    async fn run<S>(&mut self, mut sink: S) -> Result<(), Box<dyn std::error::Error>>
+impl Clock {
+    async fn run<S>(&self, mut sink: S) -> Result<(), Box<dyn std::error::Error>>
     where
         S: Sink<String> + Unpin,
         <S as Sink<String>>::Error: std::error::Error + Send + Sync + 'static,
@@ -94,4 +94,11 @@ impl Widget for Clock {
             timeout_future(wait_duration).await;
         }
     }
+}
+
+fn main() {
+    let clock = Clock;
+
+    let context = glib::MainContext::default();
+    context.block_on(clock.run(PrintSink)).unwrap();
 }
