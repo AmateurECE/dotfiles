@@ -113,6 +113,9 @@ dependencies = [
  "glib-sys",
  "gobject-sys",
  "libc",
+ "serde",
+ "serde_json",
+ "wireplumber",
  "wireplumber-sys",
 ]
 
@@ -218,6 +221,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "gio"
+version = "0.20.0"
+source = "git+https://github.com/gtk-rs/gtk-rs-core?rev=4f30a037#4f30a037a29dafda81ca7f6c07a56373e654b980"
+dependencies = [
+ "futures-channel",
+ "futures-core",
+ "futures-io",
+ "futures-util",
+ "gio-sys",
+ "glib",
+ "libc",
+ "pin-project-lite",
+ "smallvec",
+ "thiserror",
+]
+
+[[package]]
 name = "gio-sys"
 version = "0.20.0"
 source = "git+https://github.com/gtk-rs/gtk-rs-core?rev=4f30a037#4f30a037a29dafda81ca7f6c07a56373e654b980"
@@ -317,6 +337,12 @@ checksum = "ba291022dbbd398a455acf126c1e341954079855bc60dfdda641363bd6922569"
 dependencies = [
  "either",
 ]
+
+[[package]]
+name = "itoa"
+version = "1.0.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
 
 [[package]]
 name = "lazy_static"
@@ -471,6 +497,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "08d43f7aa6b08d49f382cde6a7982047c3426db949b1424bc4b7ec9ae12c6ce2"
 
 [[package]]
+name = "ryu"
+version = "1.0.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f3cb5ba0dc43242ce17de99c180e96db90b235b8a9fdc9543c96d2209116bd9f"
+
+[[package]]
 name = "serde"
 version = "1.0.203"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -488,6 +520,17 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "serde_json"
+version = "1.0.117"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "455182ea6142b14f93f4bc5320a2b31c1f266b66a4a5c858b013302a5d8cbfc3"
+dependencies = [
+ "itoa",
+ "ryu",
+ "serde",
 ]
 
 [[package]]
@@ -744,6 +787,20 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c3c52e9c97a68071b23e836c9380edae937f17b9c4667bd021973efc689f618d"
 dependencies = [
  "memchr",
+]
+
+[[package]]
+name = "wireplumber"
+version = "0.1.0"
+dependencies = [
+ "bitflags",
+ "gio",
+ "glib",
+ "gobject-sys",
+ "libc",
+ "libspa-sys",
+ "pipewire-sys",
+ "wireplumber-sys",
 ]
 
 [[package]]
