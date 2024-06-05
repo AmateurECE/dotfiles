@@ -24,7 +24,7 @@ impl FromVariant for State {
     fn from_variant(variant: &Variant) -> Option<Self> {
         let map: HashMap<String, Variant> = HashMap::from_variant(variant)?;
         let property = map.get("volume")?;
-        let volume = f64::from_variant(&property)?;
+        let volume = f64::from_variant(property)?;
         Some(Self { volume })
     }
 }
@@ -119,7 +119,7 @@ async fn application(core: &Core, object_manager: &ObjectManager) -> anyhow::Res
         (*printer)(&[mixer_api.to_value()]);
         mixer_api.connect("changed", true, move |value| (*printer)(value));
     });
-    core.install_object_manager(&object_manager);
+    core.install_object_manager(object_manager);
     Ok(())
 }
 
