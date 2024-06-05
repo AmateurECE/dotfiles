@@ -159,6 +159,7 @@ dependencies = [
  "netlink-packet-core",
  "netlink-packet-generic",
  "netlink-packet-route",
+ "netlink-proto",
  "netlink-sys",
  "rtnetlink",
  "serde",

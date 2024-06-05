@@ -1,6 +1,8 @@
 use std::{collections::HashMap, pin::Pin};
 
-use futures::{pin_mut, Future, FutureExt, StreamExt, TryStreamExt};
+use futures::{
+    channel::mpsc::UnboundedReceiver, pin_mut, Future, FutureExt, StreamExt, TryStreamExt,
+};
 use genetlink::{message::RawGenlMessage, GenetlinkHandle};
 use netlink_packet_core::{
     NetlinkHeader, NetlinkMessage, NetlinkPayload, NLM_F_DUMP, NLM_F_REQUEST,
@@ -16,6 +18,7 @@ use netlink_packet_route::{
     route::{RouteAttribute, RouteMessage},
     RouteNetlinkMessage,
 };
+use netlink_proto::Connection;
 use netlink_sys::{AsyncSocket, SocketAddr};
 use rtnetlink::{
     constants::{
@@ -48,16 +51,45 @@ enum NetworkState {
     Connected,
 }
 
+/// Represents the connection state of a wireless interface.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-struct WirelessInterfaceState {
+struct WiFiState {
     is_associated: bool,
     default_route_present: bool,
 }
 
-impl WirelessInterfaceState {
+impl WiFiState {
+    pub async fn new(
+        rtnetlink: &rtnetlink::Handle,
+        nl80211: &Nl80211Handle,
+    ) -> anyhow::Result<Self> {
+        let mut default_route_present = false;
+        let mut routes = rtnetlink.route().get(IpVersion::V4).execute();
+        while let Some(route) = routes.try_next().await? {
+            let route = Route::from(route);
+            if route.is_default_route() {
+                default_route_present = true;
+            }
+        }
+
+        let mut is_associated = false;
+        let mut interfaces = nl80211.interface().get().execute().await;
+        while let Some(interface) = interfaces.try_next().await? {
+            let wiphy = Wiphy::from(interface);
+            if wiphy.is_associated_with_ssid() {
+                is_associated = true;
+            }
+        }
+
+        Ok(WiFiState {
+            default_route_present,
+            is_associated,
+        })
+    }
+
     pub fn handle_event<T>(self, event: Option<(NetlinkMessage<T>, SocketAddr)>) -> Self
     where
-        WirelessInterfaceState: Transition<T>,
+        WiFiState: Transition<T>,
     {
         let Some((event, _)) = event else {
             return self;
@@ -69,7 +101,7 @@ impl WirelessInterfaceState {
         self.transition(event)
     }
 
-    pub fn replace_if_changed(&mut self, next_state: WirelessInterfaceState) -> Option<&Self> {
+    pub fn replace_if_changed(&mut self, next_state: WiFiState) -> Option<&Self> {
         if self != &next_state {
             *self = next_state;
             Some(self)
@@ -82,8 +114,8 @@ impl WirelessInterfaceState {
 const NL80211_CMD_CONNECT: u8 = 46;
 const NL80211_CMD_DISCONNECT: u8 = 48;
 
-impl From<WirelessInterfaceState> for NetworkState {
-    fn from(value: WirelessInterfaceState) -> Self {
+impl From<WiFiState> for NetworkState {
+    fn from(value: WiFiState) -> Self {
         if value.is_associated && value.default_route_present {
             NetworkState::Connected
         } else if value.is_associated {
@@ -94,13 +126,14 @@ impl From<WirelessInterfaceState> for NetworkState {
     }
 }
 
+/// A state may transition on multiple kinds of events.
 trait Transition<Event> {
     fn transition(self, event: Event) -> Self
     where
         Self: Sized;
 }
 
-impl Transition<RawGenlMessage> for WirelessInterfaceState {
+impl Transition<RawGenlMessage> for WiFiState {
     fn transition(mut self, event: RawGenlMessage) -> Self
     where
         Self: Sized,
@@ -116,7 +149,7 @@ impl Transition<RawGenlMessage> for WirelessInterfaceState {
     }
 }
 
-impl Transition<RouteNetlinkMessage> for WirelessInterfaceState {
+impl Transition<RouteNetlinkMessage> for WiFiState {
     fn transition(mut self, event: RouteNetlinkMessage) -> Self {
         let (route, present) = match event {
             RouteNetlinkMessage::NewRoute(route) => (route, true),
@@ -132,15 +165,6 @@ impl Transition<RouteNetlinkMessage> for WirelessInterfaceState {
         self
     }
 }
-
-// iwctl station wlan0 disconnect => NewLink,
-// iwctl station wlan0 connect <ssid> => NewLink,
-// ip link set dev wlan0 down => NewLink,
-// ip link set dev wlan0 up => NewLink,
-// ip addr del <ip> dev wlan0 => DelAddress (followed by DelRoute, NewAddress, NewRoute as dhcpcd
-// reassigns an address).
-//
-// Connectivity: Judged by existence of the default route.
 
 #[derive(Debug)]
 struct MissingAttributeError;
@@ -245,10 +269,6 @@ async fn get_mcast_groups(family: GenlMessage<GenlCtrl>) -> anyhow::Result<HashM
     Ok(mcast_groups)
 }
 
-trait IntoStateOrElse {
-    fn into_state_or_else(self, default: NetworkState) -> NetworkState;
-}
-
 struct Route(RouteMessage);
 impl From<RouteMessage> for Route {
     fn from(value: RouteMessage) -> Self {
@@ -301,36 +321,11 @@ impl Wiphy {
     }
 }
 
-async fn initial_state(
-    rtnetlink: &rtnetlink::Handle,
-    nl80211: &Nl80211Handle,
-) -> anyhow::Result<WirelessInterfaceState> {
-    let mut default_route_present = false;
-    let mut routes = rtnetlink.route().get(IpVersion::V4).execute();
-    while let Some(route) = routes.try_next().await? {
-        let route = Route::from(route);
-        if route.is_default_route() {
-            default_route_present = true;
-        }
-    }
-
-    let mut is_associated = false;
-    let mut interfaces = nl80211.interface().get().execute().await;
-    while let Some(interface) = interfaces.try_next().await? {
-        let wiphy = Wiphy::from(interface);
-        if wiphy.is_associated_with_ssid() {
-            is_associated = true;
-        }
-    }
-
-    Ok(WirelessInterfaceState {
-        default_route_present,
-        is_associated,
-    })
-}
-
-#[tokio::main(flavor = "current_thread")]
-async fn main() -> anyhow::Result<()> {
+pub async fn new_genetlink_connection() -> anyhow::Result<(
+    Connection<RawGenlMessage>,
+    Nl80211Handle,
+    UnboundedReceiver<(NetlinkMessage<RawGenlMessage>, SocketAddr)>,
+)> {
     let mcast_groups = {
         let (conn, mut handle, _) = genetlink::new_connection()?;
         tokio::spawn(conn);
@@ -340,16 +335,22 @@ async fn main() -> anyhow::Result<()> {
     };
 
     // TODO: Only spin up an nl80211 connection if our interface is a wiphy.
-    let (mut connection, nlhandle, mut nl80211) = wl_nl80211::new_connection()?;
+    let (mut connection, nlhandle, nl80211) = wl_nl80211::new_connection()?;
     let addr = SocketAddr::new(0, 0);
     let socket = connection.socket_mut().socket_mut();
     socket.bind(&addr)?;
     for group in mcast_groups {
         socket.add_membership(group)?;
     }
-    tokio::spawn(connection);
+    Ok((connection, nlhandle, nl80211))
+}
 
-    let (mut connection, rthandle, mut rtnetlink) = rtnetlink::new_connection()?;
+async fn new_rtnetlink_connection() -> anyhow::Result<(
+    Connection<RouteNetlinkMessage>,
+    rtnetlink::Handle,
+    UnboundedReceiver<(NetlinkMessage<RouteNetlinkMessage>, SocketAddr)>,
+)> {
+    let (mut connection, rthandle, rtnetlink) = rtnetlink::new_connection()?;
     let mgroup_flags = RTMGRP_LINK
         | RTMGRP_IPV4_IFADDR
         | RTMGRP_IPV4_ROUTE
@@ -357,22 +358,30 @@ async fn main() -> anyhow::Result<()> {
         | RTMGRP_IPV6_ROUTE;
     let addr = SocketAddr::new(0, mgroup_flags);
     connection.socket_mut().socket_mut().bind(&addr)?;
+    Ok((connection, rthandle, rtnetlink))
+}
+
+#[tokio::main(flavor = "current_thread")]
+async fn main() -> anyhow::Result<()> {
+    let (connection, nlhandle, mut nl80211) = new_genetlink_connection().await?;
+    tokio::spawn(connection);
+    let (connection, rthandle, mut rtnetlink) = new_rtnetlink_connection().await?;
     tokio::spawn(connection);
 
-    let mut phy_state = initial_state(&rthandle, &nlhandle).await?;
-    let state = NetworkState::from(phy_state);
+    let mut wifi = WiFiState::new(&rthandle, &nlhandle).await?;
+    let state = NetworkState::from(wifi);
     dbg!(state);
     loop {
         let mut nl80211 = nl80211.next().fuse();
         let mut rtnetlink = rtnetlink.next().fuse();
 
         let next_state = futures::select! {
-            event = nl80211 => phy_state.handle_event(event),
-            event = rtnetlink => phy_state.handle_event(event),
+            event = nl80211 => wifi.handle_event(event),
+            event = rtnetlink => wifi.handle_event(event),
         };
 
-        if phy_state.replace_if_changed(next_state).is_some() {
-            let state = NetworkState::from(phy_state);
+        if wifi.replace_if_changed(next_state).is_some() {
+            let state = NetworkState::from(wifi);
             dbg!(state);
         }
     }
