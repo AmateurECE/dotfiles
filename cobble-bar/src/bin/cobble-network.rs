@@ -1,4 +1,8 @@
-use std::{collections::HashMap, pin::Pin};
+use std::{
+    collections::HashMap,
+    env::{self},
+    pin::Pin,
+};
 
 use futures::{
     channel::mpsc::UnboundedReceiver, pin_mut, Future, FutureExt, StreamExt, TryStreamExt,
@@ -15,6 +19,7 @@ use netlink_packet_generic::{
     GenlMessage,
 };
 use netlink_packet_route::{
+    link::LinkAttribute,
     route::{RouteAttribute, RouteMessage},
     RouteNetlinkMessage,
 };
@@ -53,13 +58,37 @@ enum NetworkState {
 
 /// Represents the connection state of a wireless interface.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-struct WiFiState {
+struct WirelessInterface {
+    interface_index: u32,
     is_associated: bool,
     default_route_present: bool,
 }
 
-impl WiFiState {
+// TODO: Implement EthernetState. Document the decision to prioritize Wifi over Ethernet and the
+// cases where this breaks down (e.g. on a Router, where the wireless interface is not WAN-facing).
+
+pub async fn get_interface_index(
+    rtnetlink: &rtnetlink::Handle,
+    interface_name: &str,
+) -> anyhow::Result<u32> {
+    let mut links = rtnetlink.link().get().execute();
+    while let Some(link) = links.try_next().await? {
+        let name = link
+            .attributes
+            .iter()
+            .find_map(|attr| some_if_matches!(attr, LinkAttribute::IfName(name), name))
+            .ok_or(MissingAttributeError("IfName".to_string()))?;
+        if name == interface_name {
+            return Ok(link.header.index);
+        }
+    }
+
+    panic!("No interface matching name {}", interface_name);
+}
+
+impl WirelessInterface {
     pub async fn new(
+        interface_index: u32,
         rtnetlink: &rtnetlink::Handle,
         nl80211: &Nl80211Handle,
     ) -> anyhow::Result<Self> {
@@ -67,7 +96,10 @@ impl WiFiState {
         let mut routes = rtnetlink.route().get(IpVersion::V4).execute();
         while let Some(route) = routes.try_next().await? {
             let route = Route::from(route);
-            if route.is_default_route() {
+            let oif = route
+                .oif()
+                .ok_or(MissingAttributeError("Oif".to_string()))?;
+            if oif == interface_index && route.is_default_route() {
                 default_route_present = true;
             }
         }
@@ -76,12 +108,16 @@ impl WiFiState {
         let mut interfaces = nl80211.interface().get().execute().await;
         while let Some(interface) = interfaces.try_next().await? {
             let wiphy = Wiphy::from(interface);
-            if wiphy.is_associated_with_ssid() {
+            let index = wiphy
+                .id()
+                .ok_or(MissingAttributeError("IfIndex".to_string()))?;
+            if index == interface_index && wiphy.is_associated_with_ssid() {
                 is_associated = true;
             }
         }
 
-        Ok(WiFiState {
+        Ok(WirelessInterface {
+            interface_index,
             default_route_present,
             is_associated,
         })
@@ -89,7 +125,7 @@ impl WiFiState {
 
     pub fn handle_event<T>(self, event: Option<(NetlinkMessage<T>, SocketAddr)>) -> Self
     where
-        WiFiState: Transition<T>,
+        WirelessInterface: Transition<T>,
     {
         let Some((event, _)) = event else {
             return self;
@@ -101,7 +137,8 @@ impl WiFiState {
         self.transition(event)
     }
 
-    pub fn replace_if_changed(&mut self, next_state: WiFiState) -> Option<&Self> {
+    // TODO: Should probably refactor this method (and handle_event?) out into a monad.
+    pub fn replace_if_changed(&mut self, next_state: WirelessInterface) -> Option<&Self> {
         if self != &next_state {
             *self = next_state;
             Some(self)
@@ -109,22 +146,21 @@ impl WiFiState {
             None
         }
     }
-}
 
-const NL80211_CMD_CONNECT: u8 = 46;
-const NL80211_CMD_DISCONNECT: u8 = 48;
-
-impl From<WiFiState> for NetworkState {
-    fn from(value: WiFiState) -> Self {
-        if value.is_associated && value.default_route_present {
+    // TODO: Should maybe be a trait?
+    pub fn network_state(&self) -> NetworkState {
+        if self.is_associated && self.default_route_present {
             NetworkState::Connected
-        } else if value.is_associated {
+        } else if self.is_associated {
             NetworkState::Connecting
         } else {
             NetworkState::Disconnected
         }
     }
 }
+
+const NL80211_CMD_CONNECT: u8 = 46;
+const NL80211_CMD_DISCONNECT: u8 = 48;
 
 /// A state may transition on multiple kinds of events.
 trait Transition<Event> {
@@ -133,12 +169,14 @@ trait Transition<Event> {
         Self: Sized;
 }
 
-impl Transition<RawGenlMessage> for WiFiState {
+impl Transition<RawGenlMessage> for WirelessInterface {
     fn transition(mut self, event: RawGenlMessage) -> Self
     where
         Self: Sized,
     {
         let (header, _) = event.into_parts();
+        // TODO: Need to parse the message here and check the interface this event was triggered
+        // on.
         if header.cmd == NL80211_CMD_CONNECT {
             self.is_associated = true;
         } else if header.cmd == NL80211_CMD_DISCONNECT {
@@ -149,7 +187,7 @@ impl Transition<RawGenlMessage> for WiFiState {
     }
 }
 
-impl Transition<RouteNetlinkMessage> for WiFiState {
+impl Transition<RouteNetlinkMessage> for WirelessInterface {
     fn transition(mut self, event: RouteNetlinkMessage) -> Self {
         let (route, present) = match event {
             RouteNetlinkMessage::NewRoute(route) => (route, true),
@@ -158,7 +196,10 @@ impl Transition<RouteNetlinkMessage> for WiFiState {
         };
 
         let route = Route::from(route);
-        if route.is_default_route() {
+        let Some(oif) = route.oif() else {
+            return self;
+        };
+        if oif == self.interface_index && route.is_default_route() {
             self.default_route_present = present;
         }
 
@@ -167,11 +208,11 @@ impl Transition<RouteNetlinkMessage> for WiFiState {
 }
 
 #[derive(Debug)]
-struct MissingAttributeError;
+struct MissingAttributeError(String);
 impl std::error::Error for MissingAttributeError {}
 impl std::fmt::Display for MissingAttributeError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Missing attribute")
+        write!(f, "Missing attribute \"{}\"", self.0)
     }
 }
 
@@ -252,7 +293,7 @@ async fn get_mcast_groups(family: GenlMessage<GenlCtrl>) -> anyhow::Result<HashM
                 None
             }
         })
-        .ok_or(MissingAttributeError)?
+        .ok_or(MissingAttributeError("McastGroups".to_string()))?
         .into_iter()
         .map(|attrs| {
             let id = attrs
@@ -302,6 +343,13 @@ impl Route {
     pub fn is_default_route(&self) -> bool {
         self.is_in_table(254) && !self.has_destination() && 0 == self.destination_prefix_length()
     }
+
+    pub fn oif(&self) -> Option<u32> {
+        self.0
+            .attributes
+            .iter()
+            .find_map(|attr| some_if_matches!(attr, RouteAttribute::Oif(id), *id))
+    }
 }
 
 struct Wiphy(GenlMessage<Nl80211Message>);
@@ -318,6 +366,14 @@ impl Wiphy {
             .nlas
             .iter()
             .any(|attr| matches!(attr, Nl80211Attr::Ssid(_)))
+    }
+
+    pub fn id(&self) -> Option<u32> {
+        self.0
+            .payload
+            .nlas
+            .iter()
+            .find_map(|attr| some_if_matches!(attr, Nl80211Attr::IfIndex(id), *id))
     }
 }
 
@@ -368,8 +424,15 @@ async fn main() -> anyhow::Result<()> {
     let (connection, rthandle, mut rtnetlink) = new_rtnetlink_connection().await?;
     tokio::spawn(connection);
 
-    let mut wifi = WiFiState::new(&rthandle, &nlhandle).await?;
-    let state = NetworkState::from(wifi);
+    // TODO: This will suffice for now, but in the future we should enumerate all links and
+    // intelligently track the state of each.
+    let mut args = env::args();
+    args.next();
+    let interface_name = args.next().unwrap();
+
+    let interface_index = get_interface_index(&rthandle, &interface_name).await?;
+    let mut wifi = WirelessInterface::new(interface_index, &rthandle, &nlhandle).await?;
+    let state = wifi.network_state();
     dbg!(state);
     loop {
         let mut nl80211 = nl80211.next().fuse();
@@ -381,7 +444,7 @@ async fn main() -> anyhow::Result<()> {
         };
 
         if wifi.replace_if_changed(next_state).is_some() {
-            let state = NetworkState::from(wifi);
+            let state = wifi.network_state();
             dbg!(state);
         }
     }
