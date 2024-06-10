@@ -17,7 +17,7 @@ return {
     opts = {
       pickers = {
         find_files = {
-          find_command = { "rg", "--ignore", "--files", "--hidden", "--glob", "!**/.git/*" },
+          find_command = { "rg", "--ignore", "--files", "--hidden", "--glob", "!**/.git/*", "--glob", "!**/target/*" },
         },
       },
     },
