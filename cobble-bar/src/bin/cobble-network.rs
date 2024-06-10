@@ -44,7 +44,7 @@ macro_rules! some_if_matches {
     };
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, serde::Serialize)]
 enum NetworkState {
     /// Reached when low level transport is down (no carrier, no associated SSID, etc.).
     Disconnected,
@@ -432,8 +432,7 @@ async fn main() -> anyhow::Result<()> {
 
     let interface_index = get_interface_index(&rthandle, &interface_name).await?;
     let mut wifi = WirelessInterface::new(interface_index, &rthandle, &nlhandle).await?;
-    let state = wifi.network_state();
-    dbg!(state);
+    println!("{}", serde_json::to_string(&wifi.network_state())?);
     loop {
         let mut nl80211 = nl80211.next().fuse();
         let mut rtnetlink = rtnetlink.next().fuse();
@@ -444,8 +443,7 @@ async fn main() -> anyhow::Result<()> {
         };
 
         if wifi.replace_if_changed(next_state).is_some() {
-            let state = wifi.network_state();
-            dbg!(state);
+            println!("{}", serde_json::to_string(&wifi.network_state())?);
         }
     }
 }
