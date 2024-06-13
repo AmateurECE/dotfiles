@@ -23,6 +23,9 @@ wl-nl80211 = "0.1.2"
 netlink-packet-generic = "0.3.3"
 genetlink = "0.2.5"
 netlink-proto = "0.11.3"
+lazy_static = "1.4.0"
+regex = "1.10.5"
+pin-project = "1.1.5"
 
 [dependencies.ffi]
 package = "wireplumber-sys"
