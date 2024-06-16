@@ -1,0 +1,68 @@
+/* GTK CSS Property Reference: https://docs.gtk.org/gtk4/css-properties.html
+ */
+
+*{
+  all: unset;
+  /* TODO: Ensure this font is installed in the ebuild */
+  font-family: IosevkaNerdFont;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Colors taken from palette.txt.
+ * Color names provided by https://www.color-name.com/
+ */
+$black:                 #000000;
+$black-coffee:          #3a282e;
+$olive-drab-camoflage:  #56483e;
+$tuscan-red:            #784245;
+$davys-grey:            #594d5a;
+$pastel-brown:          #776856;
+$middle-grey:           #8b847a;
+$terra-cotta:           #d87264;
+$metallic-bronze:       #a48d60;
+$straw:                 #e8d175;
+
+/* Colors by function, instead of by name */
+$text-color:        $black-coffee;
+$background-color:  $straw;
+$accent-1:          $terra-cotta;
+
+.module {
+  background-color: $background-color;
+  color: $text-color;
+  border-radius: 16px;
+  padding: 0px 10px;
+}
+
+progressbar {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 2px;
+}
+
+progressbar > trough {
+  border-radius: 16px;
+  background-color: $text-color;
+  margin-bottom: 2px;
+  min-width: 96px;
+}
+
+trough > progress {
+  border-radius: 16px;
+  background-color: $accent-1;
+}
+
+.left-margin {
+  margin-left: 8px;
+}
+
+.right-margin {
+  margin-right: 8px;
+}
+
+// Some icons experience kerning, so they need non-uniform padding in order to
+// appear centered.
+.kerning-icon {
+  padding: 0px 16px 0px 10px;
+}

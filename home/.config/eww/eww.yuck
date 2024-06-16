@@ -1,0 +1,59 @@
+(deflisten time :initial "{}" `cobble-clock`)
+(defwidget clock []
+  (label :text "${time?.content}" :class "module left-margin"))
+
+(deflisten connection_state :initial "{}" `cobble-network wlan0`)
+(defwidget network []
+  (box :orientation "h"
+    :space-evenly false
+    :halign "end"
+    :class "module kerning-icon left-margin"
+    (label :text "${connection_state?.content}")))
+
+(deflisten audio_state :initial "{\"volume\":0}" `cobble-audio`)
+(defwidget audio []
+  (box
+    :space-evenly false
+    :class "module left-margin"
+    (label :text "󰕾" :class "right-margin")
+    (progress :width 96 :value "${audio_state.volume}")))
+
+(defwidget battery []
+  (box
+    :space-evenly false
+    :class "module left-margin"
+    (label :text "󰂀" :class "right-margin")
+    (label :text "${EWW_BATTERY.macsmc-battery.capacity}%")))
+
+(deflisten workspace_state :initial "{}" `cobble-workspaces`)
+(defwidget workspaces []
+  (label :text "${workspace_state?.content}" :class "module kerning-icon"))
+
+(defwidget left []
+  (box
+    :orientation "h"
+    :space-evenly false
+    :halign "start"
+    (workspaces)))
+
+(defwidget right []
+  (box
+    :orientation "h"
+    :space-evenly false
+    :halign "end"
+    (audio)
+    (network)
+    (battery)
+    (clock)))
+
+(defwindow bar
+  :monitor 0
+  :geometry (geometry :x "0%"
+                      :y "9px"
+                      :width "98%"
+                      :height "30px"
+                      :anchor "top center")
+  :exclusive true
+  (box :orientation "h" :class "bar"
+    (left)
+    (right)))
