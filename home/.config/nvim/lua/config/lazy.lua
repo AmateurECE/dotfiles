@@ -17,6 +17,8 @@ require("lazy").setup({
     -- import/override with your plugins
     { import = "plugins.theme" },
     { import = "plugins.editor" },
+    { import = "plugins.agda" },
+    { import = "plugins.haskell" },
     { import = "plugins.rust" },
     { import = "plugins.cpp" },
     { import = "plugins.python" },

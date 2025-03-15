@@ -85,3 +85,12 @@ fi
 if [[ -d "$HOME/.npm-global/bin" ]]; then
   export PATH="$HOME/.npm-global/bin:$PATH"
 fi
+
+# Include GHCup for Haskell
+if [[ -d "$HOME/.ghcup/bin" ]]; then
+  export PATH="$HOME/.ghcup/bin:$PATH"
+fi
+
+if [[ -d "$HOME/.cabal/bin" ]]; then
+  export PATH="$HOME/.cabal/bin:$PATH"
+fi
