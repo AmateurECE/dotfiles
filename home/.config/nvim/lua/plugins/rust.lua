@@ -7,9 +7,13 @@ return {
         rust_analyzer = {
           cmd = { "sh", "-c", "rustup run $(rustup show active-toolchain | awk '{print $1}') rust-analyzer" },
           settings = {
-            ['rust-analyzer'] = {
+            ["rust-analyzer"] = {
               check = {
                 allTargets = false,
+              },
+              cargo = {
+                unsetTest = false,
+                sysroot = "discover",
               },
             },
           },
