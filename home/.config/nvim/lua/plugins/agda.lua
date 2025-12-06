@@ -4,29 +4,26 @@ return {
     -- Only load this plugin when a *.agda file is opened.
     ft = "agda",
     -- The plugin does not call its own setup function, apparently?
-    config = function()
-      require("agda").setup()
-    end,
     -- Setup function does not set up the key bindings listed in the README :(
-    keys = {
-      { "<leader>l", "<cmd>AgdaLoad<CR>" },
-      { "<leader>q", "<cmd>AgdaCloseMsg<CR>" },
-      { "<leader>,", "<cmd>AgdaTypeContext<CR>" },
-      { "<leader>.", "<cmd>AgdaTypeContextInfer<CR>" },
-      { "<leader>u,", "<cmd>AgdaTypeContextNorm<CR>" },
-      { "<leader>d", "<cmd>AgdaInfer<CR>" },
-      { "<leader>r", "<cmd>AgdaRefine<CR>" },
-      { "<leader>c", "<cmd>AgdaMakeCase<CR>" },
-      { "<leader>n", "<cmd>AgdaCompute<CR>" },
-      { "<leader>a", "<cmd>AgdaAuto<CR>" },
-      { "<leader>s", "<cmd>AgdaSolve<CR>" },
-      { "<leader>h", "<cmd>AgdaHelperFun<CR>" },
-      { "<leader>o", "<cmd>AgdaModuleContents<CR>" },
-      { "<leader>w", "<cmd>AgdaWhyInscope<CR>" },
-      { "<leader>e", "<cmd>MkPrompt<CR>" },
-      { "<leader>?", "<cmd>PrintGoals<CR>" },
-      { "<leader>f", "<cmd>GoalNext<CR>" },
-      { "<leader>b", "<cmd>GoalPrev<CR>" },
-    },
+    config = function()
+        vim.keymap.set("n", "<leader>l", ":AgdaLoad<CR>")
+        vim.keymap.set("n", "<leader>q", ":AgdaCloseMsg<CR>")
+        vim.keymap.set("n", "<leader>,", ":AgdaTypeContext<CR>")
+        vim.keymap.set("n", "<leader>.", ":AgdaTypeContextInfer<CR>")
+        vim.keymap.set("n", "<leader>u,", ":AgdaTypeContextNorm<CR>")
+        vim.keymap.set("n", "<leader>d", ":AgdaInfer<CR>")
+        vim.keymap.set("n", "<leader>r", ":AgdaRefine<CR>")
+        vim.keymap.set("n", "<leader>c", ":AgdaMakeCase<CR>")
+        vim.keymap.set("n", "<leader>n", ":AgdaCompute<CR>")
+        vim.keymap.set("n", "<leader>a", ":AgdaAuto<CR>")
+        vim.keymap.set("n", "<leader>s", ":AgdaSolve<CR>")
+        vim.keymap.set("n", "<leader>h", ":AgdaHelperFun<CR>")
+        vim.keymap.set("n", "<leader>o", ":AgdaModuleContents<CR>")
+        vim.keymap.set("n", "<leader>w", ":AgdaWhyInscope<CR>")
+        vim.keymap.set("n", "<leader>e", ":MkPrompt<CR>")
+        vim.keymap.set("n", "<leader>?", ":PrintGoals<CR>")
+        vim.keymap.set("n", "<leader>f", ":GoalNext<CR>")
+        vim.keymap.set("n", "<leader>b", ":GoalPrev<CR>")
+    end,
   },
 }
