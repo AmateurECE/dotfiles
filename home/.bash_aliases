@@ -94,3 +94,12 @@ fi
 if [[ -d "$HOME/.cabal/bin" ]]; then
   export PATH="$HOME/.cabal/bin:$PATH"
 fi
+
+# Lean configuration
+if [[ -f "$HOME/.elan/env" ]]; then
+  source $HOME/.elan/env
+fi
+
+# opam configuration
+test -r $HOME/.opam/opam-init/init.sh &&
+  . $HOME/.opam/opam-init/init.sh >/dev/null 2>/dev/null || true

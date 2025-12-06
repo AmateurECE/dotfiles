@@ -1,8 +1,8 @@
 return {
-  { "williamboman/mason-lspconfig.nvim", enabled = false },
+  { "mason-org/mason-lspconfig.nvim", enabled = false },
 
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
         "stylua",
