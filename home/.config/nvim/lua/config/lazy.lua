@@ -19,6 +19,7 @@ require("lazy").setup({
     { import = "plugins.editor" },
     { import = "plugins.agda" },
     { import = "plugins.ocaml" },
+    { import = "plugins.coq" },
     { import = "plugins.lean" },
     { import = "plugins.haskell" },
     { import = "plugins.rust" },
