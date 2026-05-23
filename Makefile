@@ -22,4 +22,4 @@ install:
 	: # SSH Agent
 	install -Dm644 ssh-agent.service -t $(DESTDIR)$(systemd_userdir)
 	: # Enable "the notch"
-	install -Dm644 wayland/apple-dcp.conf -t $(DESTDIR)/lib/modprobe.d
+	install -Dm644 wayland/appledrm.conf -t $(DESTDIR)/lib/modprobe.d
