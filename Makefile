@@ -14,6 +14,7 @@ install:
 	install -Dm644 cobblede/settings.ini \
 		"$(DESTDIR)/etc/gtk-3.0/settings.ini"
 	install -Dm755 cobblede/cobblede.sh -t "$(DESTDIR)/etc/profile.d"
+	install -Dm644 cobblede/50-systemd-user.conf -t $(DESTDIR)/etc/sway/config.d
 	: # Unit overrides for xdg-desktop-portal services.
 	install -Dm644 cobblede/xdg-desktop-portal-gtk.conf \
 		-t $(DESTDIR)$(systemd_userdir)/xdg-desktop-portal-gtk.service.d
