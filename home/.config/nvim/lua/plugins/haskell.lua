@@ -4,7 +4,9 @@ return {
     ---@class PluginLspOpts
     opts = {
       servers = {
-        hls = {},
+        hls = {
+          cmd = { "stack", "exec", "haskell-language-server-wrapper", "--", "--lsp" }
+        },
       },
     },
   },
